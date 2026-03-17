@@ -18,10 +18,6 @@ class UserProfileScreen extends GetView<UserProfileController> {
           'Mon Profil',
           style: AppTextStyles.heading2.copyWith(color: Colors.white),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => controller.goBack(),
-        ),
       ),
       body: Obx(
         () {
@@ -193,20 +189,6 @@ class UserProfileScreen extends GetView<UserProfileController> {
               ],
             ),
           );
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: 'Mes articles',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
-        currentIndex: 2,
-        onTap: (index) {
-          if (index == 0) controller.goToHome();
         },
       ),
     );

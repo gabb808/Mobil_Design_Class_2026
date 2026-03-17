@@ -138,25 +138,7 @@ class ArticlesListScreen extends GetView<ArticlesListController> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primary,
-        onPressed: () => controller.goToPostArticle(),
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: 'Mes articles',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
-        currentIndex: 0,
-        onTap: (index) {
-          if (index == 2) controller.goToProfile();
-        },
-      ),
+      floatingActionButton: null,
     );
   }
 }

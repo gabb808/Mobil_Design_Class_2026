@@ -3,7 +3,7 @@ import '../../core/models/app_user.dart';
 import '../../core/repositories/neighbordrop_repository.dart';
 
 class UserProfileController extends GetxController {
-  final NeighbordropRepository repository = NeighbordropRepository();
+  final NeighbordropRepository repository = Get.find<NeighbordropRepository>();
 
   final user = Rxn<AppUser>();
   final isLoading = false.obs;
@@ -26,19 +26,16 @@ class UserProfileController extends GetxController {
     }
   }
 
+  Future<void> editProfile() async {
+    if (user.value == null) return;
+    // Navigate to edit screen and wait for the updated user returned via Get.back(result: updated)
+    final updated = await Get.toNamed('/edit-profile', arguments: user.value);
+    if (updated is AppUser) {
+      user.value = updated;
+    }
+  }
+
   void goToMyArticles() {
-    Get.snackbar('Info', 'Ecran non implementé pour le MVP');
-  }
-
-  void editProfile() {
-    Get.snackbar('Info', 'Editer profil non implémenté pour le MVP');
-  }
-
-  void goBack() {
-    Get.back();
-  }
-
-  void goToHome() {
-    Get.offNamed('/');
+    Get.toNamed('/my-articles');
   }
 }

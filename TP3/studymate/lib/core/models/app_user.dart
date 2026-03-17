@@ -27,6 +27,29 @@ class AppUser {
 
   String get fullName => '$firstName $lastName';
 
+  AppUser copyWith({
+    String? firstName,
+    String? lastName,
+    String? photoUrl,
+    String? postalCode,
+    String? neighborhood,
+    String? bio,
+  }) {
+    return AppUser(
+      id: id,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      photoUrl: photoUrl ?? this.photoUrl,
+      postalCode: postalCode ?? this.postalCode,
+      neighborhood: neighborhood ?? this.neighborhood,
+      bio: bio ?? this.bio,
+      memberRating: memberRating,
+      memberSince: memberSince,
+      articlesPosted: articlesPosted,
+      exchangesCompleted: exchangesCompleted,
+    );
+  }
+
   factory AppUser.fromJson(Map<String, dynamic> json) {
     return AppUser(
       id: json['id'] ?? '',
