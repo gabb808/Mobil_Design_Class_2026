@@ -6,7 +6,11 @@ class Message {
   final String senderPhotoUrl;
   final String content;
   final DateTime createdAt;
-  final bool isRead;
+  bool isRead;
+  final bool isExchangeProposal;
+  final String? exchangeArticleId;
+  final String? exchangeArticleName;
+  final String? exchangeArticlePhotoUrl;
 
   Message({
     required this.id,
@@ -17,6 +21,10 @@ class Message {
     required this.content,
     required this.createdAt,
     this.isRead = false,
+    this.isExchangeProposal = false,
+    this.exchangeArticleId,
+    this.exchangeArticleName,
+    this.exchangeArticlePhotoUrl,
   });
 
   bool get isMine => senderId == '2'; // Marie est l'utilisateur courant
@@ -31,6 +39,10 @@ class Message {
       content: json['content'] ?? '',
       createdAt: DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now(),
       isRead: json['isRead'] ?? false,
+      isExchangeProposal: json['isExchangeProposal'] ?? false,
+      exchangeArticleId: json['exchangeArticleId'],
+      exchangeArticleName: json['exchangeArticleName'],
+      exchangeArticlePhotoUrl: json['exchangeArticlePhotoUrl'],
     );
   }
 
@@ -44,6 +56,10 @@ class Message {
       'content': content,
       'createdAt': createdAt.toIso8601String(),
       'isRead': isRead,
+      'isExchangeProposal': isExchangeProposal,
+      'exchangeArticleId': exchangeArticleId,
+      'exchangeArticleName': exchangeArticleName,
+      'exchangeArticlePhotoUrl': exchangeArticlePhotoUrl,
     };
   }
 }

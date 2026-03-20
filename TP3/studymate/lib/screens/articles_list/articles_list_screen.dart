@@ -15,15 +15,29 @@ class ArticlesListScreen extends GetView<ArticlesListController> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primary,
-        title: Text(
-          'NeighborDrop',
-          style: AppTextStyles.heading1.copyWith(color: Colors.white),
-        ),
+        title: Obx(() => controller.isSearchActive.value
+            ? TextField(
+                autofocus: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  hintText: 'Rechercher (ex: vélo, livre...)',
+                  hintStyle: TextStyle(color: Colors.white70),
+                  border: InputBorder.none,
+                ),
+                onChanged: controller.onChangeSearch,
+              )
+            : Text(
+                'NeighborDrop',
+                style: AppTextStyles.heading1.copyWith(color: Colors.white),
+              )),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search, color: Colors.white),
-            onPressed: () {},
-          ),
+          Obx(() => IconButton(
+                icon: Icon(
+                  controller.isSearchActive.value ? Icons.close : Icons.search,
+                  color: Colors.white,
+                ),
+                onPressed: controller.toggleSearch,
+              )),
         ],
       ),
       body: Column(
@@ -230,9 +244,15 @@ class ArticleCard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: AppDimens.paddingXS),
-                    Text(
-                      article.donorName,
-                      style: AppTextStyles.bodySmall,
+                    GestureDetector(
+                      onTap: () => Get.toNamed('/profile', arguments: article.donorId),
+                      child: Text(
+                        article.donorName,
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.primary,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
                     ),
                   ],
                 ),

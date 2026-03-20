@@ -7,18 +7,26 @@ class UserProfileController extends GetxController {
 
   final user = Rxn<AppUser>();
   final isLoading = false.obs;
+  final isCurrentUser = true.obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadUser();
+    final String? userId = Get.arguments;
+    loadUser(userId);
   }
 
-  Future<void> loadUser() async {
+  Future<void> loadUser([String? userId]) async {
     isLoading.value = true;
     try {
       final currentUser = await repository.getCurrentUser();
-      user.value = currentUser;
+      if (userId != null && currentUser != null && userId != currentUser.id) {
+        user.value = await repository.getUserById(userId);
+        isCurrentUser.value = false;
+      } else {
+        user.value = currentUser;
+        isCurrentUser.value = true;
+      }
     } catch (e) {
       Get.snackbar('Erreur', 'Impossible de charger le profil');
     } finally {

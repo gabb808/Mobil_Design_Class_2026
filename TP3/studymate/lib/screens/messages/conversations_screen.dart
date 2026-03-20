@@ -121,14 +121,16 @@ class ConversationTile extends StatelessWidget {
         child: Row(
           children: [
             // Avatar with subtle indicator
-            Stack(
-              children: [
-                CircleAvatar(
-                  radius: 28,
-                  backgroundImage: NetworkImage(conversation.otherUserPhotoUrl),
-                  onBackgroundImageError: (_, __) {},
-                  backgroundColor: AppColors.divider,
-                ),
+            GestureDetector(
+              onTap: () => Get.toNamed('/profile', arguments: conversation.otherUserId),
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 28,
+                    backgroundImage: NetworkImage(conversation.otherUserPhotoUrl),
+                    onBackgroundImageError: (_, __) {},
+                    backgroundColor: AppColors.divider,
+                  ),
                 if (hasUnread)
                   Positioned(
                     right: 0,
@@ -143,6 +145,7 @@ class ConversationTile extends StatelessWidget {
                     ),
                   ),
               ],
+            ),
             ),
             const SizedBox(width: AppDimens.paddingM),
             // Content

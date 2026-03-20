@@ -26,8 +26,9 @@ class ConversationsController extends GetxController {
     }
   }
 
-  void openConversation(Conversation conversation) {
-    Get.toNamed('/chat', arguments: conversation);
+  Future<void> openConversation(Conversation conversation) async {
+    await Get.toNamed('/chat', arguments: conversation);
+    loadConversations();
   }
 
   int get totalUnread =>

@@ -41,48 +41,51 @@ class MessagesScreen extends GetView<MessagesController> {
             return const Text('Messages',
                 style: TextStyle(color: Colors.white));
           }
-          return Row(
-            children: [
-              CircleAvatar(
-                radius: 18,
-                backgroundImage: NetworkImage(conv.otherUserPhotoUrl),
-                onBackgroundImageError: (_, __) {},
-                backgroundColor: Colors.white24,
-              ),
-              const SizedBox(width: AppDimens.paddingS),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      conv.otherUserName,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.inventory_2_outlined,
-                            size: 10, color: Colors.white70),
-                        const SizedBox(width: 3),
-                        Flexible(
-                          child: Text(
-                            conv.articleName,
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 11,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+          return GestureDetector(
+            onTap: () => Get.toNamed('/profile', arguments: conv.otherUserId),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 18,
+                  backgroundImage: NetworkImage(conv.otherUserPhotoUrl),
+                  onBackgroundImageError: (_, __) {},
+                  backgroundColor: Colors.white24,
                 ),
-              ),
-            ],
+                const SizedBox(width: AppDimens.paddingS),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        conv.otherUserName,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.inventory_2_outlined,
+                              size: 10, color: Colors.white70),
+                          const SizedBox(width: 3),
+                          Flexible(
+                            child: Text(
+                              conv.articleName,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 11,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           );
         }),
       ),
@@ -287,14 +290,59 @@ class _MessageBubble extends StatelessWidget {
                     ? CrossAxisAlignment.end
                     : CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    message.content,
-                    style: TextStyle(
-                      color: isMine ? Colors.white : AppColors.textPrimary,
-                      fontSize: 14.5,
-                      height: 1.4,
+                  if (message.isExchangeProposal) ...[
+                    Text(
+                      message.content,
+                      style: TextStyle(
+                        color: isMine ? Colors.white : AppColors.textPrimary,
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: isMine ? Colors.white.withOpacity(0.2) : Colors.grey[100],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (message.exchangeArticlePhotoUrl != null)
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: Image.network(
+                                message.exchangeArticlePhotoUrl!,
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                                errorBuilder: (_, __, ___) => const Icon(Icons.inventory_2, size: 40),
+                              ),
+                            ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: Text(
+                              message.exchangeArticleName ?? 'Article',
+                              style: TextStyle(
+                                color: isMine ? Colors.white : AppColors.textPrimary,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ] else ...[
+                    Text(
+                      message.content,
+                      style: TextStyle(
+                        color: isMine ? Colors.white : AppColors.textPrimary,
+                        fontSize: 14.5,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 3),
                   Text(
                     _formatTime(message.createdAt),
@@ -345,6 +393,10 @@ class _MessageInput extends StatelessWidget {
         top: false,
         child: Row(
           children: [
+            IconButton(
+              icon: const Icon(Icons.handshake_outlined, color: AppColors.primary),
+              onPressed: () => Get.find<MessagesController>().showExchangeProposals(context),
+            ),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(

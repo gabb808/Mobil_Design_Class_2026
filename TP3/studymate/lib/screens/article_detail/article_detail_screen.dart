@@ -36,6 +36,7 @@ class ArticleDetailScreen extends GetView<ArticleDetailController> {
           final article = controller.article.value!;
 
           return SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -117,42 +118,45 @@ class ArticleDetailScreen extends GetView<ArticleDetailController> {
                       ),
                       SizedBox(height: AppDimens.paddingM),
 
-                      Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(AppDimens.paddingM),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 40,
-                                backgroundImage: NetworkImage(
-                                  article.donorPhotoUrl,
+                      GestureDetector(
+                        onTap: () => Get.toNamed('/profile', arguments: article.donorId),
+                        child: Card(
+                          child: Padding(
+                            padding: EdgeInsets.all(AppDimens.paddingM),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 40,
+                                  backgroundImage: NetworkImage(
+                                    article.donorPhotoUrl,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: AppDimens.paddingM),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      article.donorName,
-                                      style: AppTextStyles.bodyLarge,
-                                    ),
-                                    Text(
-                                      'Quartier: ${article.neighborhood}',
-                                      style: AppTextStyles.bodySmall,
-                                    ),
-                                    SizedBox(height: AppDimens.paddingXS),
-                                    Text(
-                                      'Membre depuis 2 ans',
-                                      style: AppTextStyles.bodySmall.copyWith(
-                                        color: Colors.grey[600],
+                                SizedBox(width: AppDimens.paddingM),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        article.donorName,
+                                        style: AppTextStyles.bodyLarge,
                                       ),
-                                    ),
-                                  ],
+                                      Text(
+                                        'Quartier: ${article.neighborhood}',
+                                        style: AppTextStyles.bodySmall,
+                                      ),
+                                      SizedBox(height: AppDimens.paddingXS),
+                                      Text(
+                                        'Membre depuis 2 ans',
+                                        style: AppTextStyles.bodySmall.copyWith(
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -169,7 +173,7 @@ class ArticleDetailScreen extends GetView<ArticleDetailController> {
                               vertical: AppDimens.paddingM,
                             ),
                           ),
-                          onPressed: () => _showPropositionDialog(context),
+                          onPressed: () => controller.showExchangeProposals(context),
                           child: const Text(
                             'Proposer un echange',
                             style: TextStyle(
@@ -208,47 +212,6 @@ class ArticleDetailScreen extends GetView<ArticleDetailController> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  void _showPropositionDialog(BuildContext context) {
-    final messageController = TextEditingController();
-
-    Get.dialog(
-      AlertDialog(
-        title: const Text('Proposer un echange'),
-        content: TextField(
-          controller: messageController,
-          maxLines: 3,
-          decoration: InputDecoration(
-            hintText: 'Votre message...',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: const Text('Annuler'),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-            ),
-            onPressed: () {
-              if (messageController.text.isNotEmpty) {
-                controller.sendProposition(messageController.text);
-                Get.back();
-              }
-            },
-            child: const Text(
-              'Envoyer',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
       ),
     );
   }

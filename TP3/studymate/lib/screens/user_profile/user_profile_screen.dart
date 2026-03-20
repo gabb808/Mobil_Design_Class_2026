@@ -14,10 +14,10 @@ class UserProfileScreen extends GetView<UserProfileController> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primary,
-        title: Text(
-          'Mon Profil',
+        title: Obx(() => Text(
+          controller.isCurrentUser.value ? 'Mon Profil' : 'Profil Voisin',
           style: AppTextStyles.heading2.copyWith(color: Colors.white),
-        ),
+        )),
       ),
       body: Obx(
         () {
@@ -103,53 +103,55 @@ class UserProfileScreen extends GetView<UserProfileController> {
                 SizedBox(height: AppDimens.paddingL),
 
                 // Buttons
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            padding:
-                                EdgeInsets.symmetric(vertical: AppDimens.paddingM),
-                          ),
-                          icon: const Icon(Icons.edit, color: Colors.white),
-                          label: const Text(
-                            'Editer profil',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                if (controller.isCurrentUser.value)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: AppDimens.paddingM),
                             ),
-                          ),
-                          onPressed: () => controller.editProfile(),
-                        ),
-                      ),
-                      SizedBox(height: AppDimens.paddingS),
-                      SizedBox(
-                        width: double.infinity,
-                        child: OutlinedButton.icon(
-                          style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: AppColors.primary),
-                            padding:
-                                EdgeInsets.symmetric(vertical: AppDimens.paddingM),
-                          ),
-                          icon: const Icon(Icons.shopping_bag,
-                              color: AppColors.primary),
-                          label: const Text(
-                            'Mes articles',
-                            style: TextStyle(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.bold,
+                            icon: const Icon(Icons.edit, color: Colors.white),
+                            label: const Text(
+                              'Editer profil',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
+                            onPressed: () => controller.editProfile(),
                           ),
-                          onPressed: () => controller.goToMyArticles(),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: AppDimens.paddingS),
+                        SizedBox(
+                          width: double.infinity,
+                          child: OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                              side: const BorderSide(color: AppColors.primary),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: AppDimens.paddingM),
+                            ),
+                            icon: const Icon(Icons.shopping_bag,
+                                color: AppColors.primary),
+                            label: const Text(
+                              'Mes articles',
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () => controller.goToMyArticles(),
+                          ),
+                        ),
+                        SizedBox(height: AppDimens.paddingL),
+                      ],
+                    ),
                   ),
-                ),
 
                 SizedBox(height: AppDimens.paddingL),
 

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/models/article.dart';
 import '../../core/models/conversation.dart';
@@ -20,10 +21,92 @@ class MessagesController extends GetxController {
     if (arg is Conversation) {
       // Ouvert depuis l'inbox
       conversation.value = arg;
+      repository.markConversationAsRead(arg.id);
       messages.value = List<Message>.from(arg.messages);
     } else if (arg is Article) {
       // Ouvert depuis "Contacter le voisin" sur une annonce
       _initFromArticle(arg);
+    }
+  }
+
+  Future<void> showExchangeProposals(dynamic context) async {
+    final myUser = await repository.getCurrentUser();
+    if (myUser == null) return;
+    
+    final myArticles = await repository.getArticlesByUser(myUser.id);
+    if (myArticles.isEmpty) {
+      Get.snackbar('Oups', "Vous n'avez pas encore d'articles à échanger.");
+      return;
+    }
+
+    // Since we don't import material.dart here directly, 
+    // it's better to show a Get bottomsheet with basic widgets or just standard Get dialog
+    Get.bottomSheet(
+      Container(
+        color: const Color(0xFFFFFFFF),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Proposer un échange',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Flexible(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: myArticles.length,
+                itemBuilder: (ctx, idx) {
+                  final article = myArticles[idx];
+                  return ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        article.photoUrl,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported),
+                      ),
+                    ),
+                    title: Text(article.name),
+                    subtitle: Text(article.category),
+                    onTap: () {
+                      Get.back();
+                      _sendExchangeProposal(article);
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _sendExchangeProposal(Article article) async {
+    isSending.value = true;
+    try {
+      final text = 'Je vous propose cet article en échange. Êtes-vous intéressé(e) ?';
+      final msg = await repository.sendMessage(
+        conversationId: conversation.value!.id,
+        content: text,
+        isExchangeProposal: true,
+        exchangeArticleId: article.id,
+        exchangeArticleName: article.name,
+        exchangeArticlePhotoUrl: article.photoUrl,
+      );
+      messages.add(msg);
+    } catch (e) {
+      Get.snackbar('Erreur', "Impossible d'envoyer la proposition");
+    } finally {
+      isSending.value = false;
     }
   }
 

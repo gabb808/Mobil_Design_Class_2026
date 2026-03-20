@@ -7,6 +7,8 @@ class ArticlesListController extends GetxController {
   
   final articles = <Article>[].obs;
   final isLoading = false.obs;
+  final isSearchActive = false.obs;
+  final searchQuery = ''.obs;
   final selectedCategory = 'Tous'.obs;
   final selectedPostalCode = '75012'.obs;
   final categories = [
@@ -32,6 +34,7 @@ class ArticlesListController extends GetxController {
       final result = await repository.getArticles(
         category: selectedCategory.value == 'Tous' ? null : selectedCategory.value,
         postalCode: selectedPostalCode.value,
+        searchQuery: searchQuery.value,
       );
       articles.value = result;
     } catch (e) {
@@ -48,6 +51,19 @@ class ArticlesListController extends GetxController {
 
   void changePostalCode(String code) {
     selectedPostalCode.value = code;
+    loadArticles();
+  }
+
+  void toggleSearch() {
+    isSearchActive.value = !isSearchActive.value;
+    if (!isSearchActive.value) {
+      searchQuery.value = '';
+      loadArticles();
+    }
+  }
+
+  void onChangeSearch(String query) {
+    searchQuery.value = query;
     loadArticles();
   }
 

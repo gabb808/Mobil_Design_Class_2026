@@ -605,7 +605,7 @@ class NeighbordropRepository {
   Future<void> _delay() => Future.delayed(const Duration(milliseconds: 200));
 
   // Articles
-  Future<RxList<Article>> getArticles({String? category, String? postalCode}) async {
+  Future<RxList<Article>> getArticles({String? category, String? postalCode, String? searchQuery}) async {
     await _delay();
 
     List<Article> articles = _mockArticles;
@@ -616,6 +616,11 @@ class NeighbordropRepository {
 
     if (postalCode != null) {
       articles = articles.where((a) => a.postalCode == postalCode).toList();
+    }
+
+    if (searchQuery != null && searchQuery.isNotEmpty) {
+      final q = searchQuery.toLowerCase();
+      articles = articles.where((a) => a.name.toLowerCase().contains(q) || a.description.toLowerCase().contains(q)).toList();
     }
 
     return articles.obs;
@@ -793,6 +798,18 @@ class NeighbordropRepository {
     return sorted;
   }
 
+  Future<void> markConversationAsRead(String conversationId) async {
+    await _delay();
+    final index = _mockConversations.indexWhere((c) => c.id == conversationId);
+    if (index != -1) {
+      for (var msg in _mockConversations[index].messages) {
+        if (!msg.isMine && !msg.isRead) {
+          msg.isRead = true;
+        }
+      }
+    }
+  }
+
   Future<Conversation?> getConversationById(String id) async {
     await _delay();
     try {
@@ -835,21 +852,30 @@ class NeighbordropRepository {
   Future<Message> sendMessage({
     required String conversationId,
     required String content,
+    bool isExchangeProposal = false,
+    String? exchangeArticleId,
+    String? exchangeArticleName,
+    String? exchangeArticlePhotoUrl,
   }) async {
     await _delay();
     final message = Message(
-      id: 'msg${DateTime.now().millisecondsSinceEpoch}',
+      id: 'm${DateTime.now().millisecondsSinceEpoch}',
       conversationId: conversationId,
       senderId: '2',
       senderName: 'Marie Martin',
       senderPhotoUrl: 'https://i.pravatar.cc/150?img=5',
       content: content,
       createdAt: DateTime.now(),
-      isRead: true,
+      isRead: false,
+      isExchangeProposal: isExchangeProposal,
+      exchangeArticleId: exchangeArticleId,
+      exchangeArticleName: exchangeArticleName,
+      exchangeArticlePhotoUrl: exchangeArticlePhotoUrl,
     );
-    final convIndex = _mockConversations.indexWhere((c) => c.id == conversationId);
-    if (convIndex != -1) {
-      _mockConversations[convIndex].messages.add(message);
+
+    final index = _mockConversations.indexWhere((c) => c.id == conversationId);
+    if (index != -1) {
+      _mockConversations[index].messages.add(message);
     }
     return message;
   }
