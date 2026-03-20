@@ -19,9 +19,9 @@ class UserProfileScreen extends GetView<UserProfileController> {
         elevation: 0,
         backgroundColor: AppColors.primary,
         title: Obx(() => Text(
-              controller.isCurrentUser.value ? 'Mon Profil' : 'Profil Voisin',
-              style: AppTextStyles.heading2.copyWith(color: Colors.white),
-            )),
+          controller.isCurrentUser.value ? 'Mon Profil' : 'Profil Voisin',
+          style: AppTextStyles.heading2.copyWith(color: Colors.white),
+        )),
       ),
       body: Obx(
         () {
@@ -104,8 +104,7 @@ class UserProfileScreen extends GetView<UserProfileController> {
                 // Buttons
                 if (controller.isCurrentUser.value)
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
+                    padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
                     child: Column(
                       children: [
                         SizedBox(
@@ -146,27 +145,6 @@ class UserProfileScreen extends GetView<UserProfileController> {
                               ),
                             ),
                             onPressed: () => controller.goToMyArticles(),
-                          ),
-                        ),
-                        const SizedBox(height: AppDimens.paddingS),
-                        SizedBox(
-                          width: double.infinity,
-                          child: OutlinedButton.icon(
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: AppColors.primary),
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: AppDimens.paddingM),
-                            ),
-                            icon: const Icon(Icons.favorite,
-                                color: AppColors.primary),
-                            label: const Text(
-                              'Mes favoris',
-                              style: TextStyle(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: () => Get.toNamed('/my-favorites'),
                           ),
                         ),
                         const SizedBox(height: AppDimens.paddingL),
@@ -249,4 +227,3 @@ class UserProfileScreen extends GetView<UserProfileController> {
     );
   }
 }
-
