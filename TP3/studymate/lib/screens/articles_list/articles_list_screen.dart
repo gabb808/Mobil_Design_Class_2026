@@ -43,7 +43,28 @@ class ArticlesListScreen extends GetView<ArticlesListController> {
       ),
       body: Column(
         children: [
-          
+          // Distance radius slider
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingM, vertical: AppDimens.paddingS),
+            child: Obx(() => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Rayon de recherche: ${controller.searchRadiusKm.value.toInt()} km',
+                  style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Slider(
+                  value: controller.searchRadiusKm.value,
+                  min: 1.0,
+                  max: 50.0,
+                  divisions: 49,
+                  activeColor: AppColors.primary,
+                  label: '${controller.searchRadiusKm.value.toInt()} km',
+                  onChanged: (value) => controller.changeSearchRadius(value),
+                ),
+              ],
+            )),
+          ),
 
           // Category filter chips
           Obx(
@@ -246,19 +267,11 @@ class ArticleCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(width: AppDimens.paddingXS),
-                        Text(
-                          article.size,
-                          style: AppTextStyles.bodySmall.copyWith(
-                            color: Colors.grey[600],
-                          ),
-                        ),
                       ],
                     ),
                     const SizedBox(height: AppDimens.paddingXS),
                     GestureDetector(
-                      onTap: () =>
-                          Get.toNamed('/profile', arguments: article.donorId),
+                      onTap: () => Get.toNamed('/profile', arguments: article.donorId),
                       child: Text(
                         article.donorName,
                         style: AppTextStyles.bodySmall.copyWith(
@@ -277,8 +290,3 @@ class ArticleCard extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
