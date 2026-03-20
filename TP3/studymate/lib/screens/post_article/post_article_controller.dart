@@ -52,7 +52,6 @@ class PostArticleController extends GetxController {
         name: nameController.text,
         category: selectedCategory.value,
         size: sizeController.text,
-        weight: sizeController.text,
         description: descriptionController.text,
         condition: selectedCondition.value,
         photoUrl:
@@ -61,7 +60,8 @@ class PostArticleController extends GetxController {
         donorName: 'Mon Profil',
         donorPhotoUrl: 'https://i.pravatar.cc/150?img=2',
         postalCode: postalCodeController.text,
-        neighborhood: 'Bercy',
+        latitude: 48.8566,
+        longitude: 2.3522,
         createdAt: DateTime.now(),
       );
 

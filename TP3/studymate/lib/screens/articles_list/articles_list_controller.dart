@@ -10,7 +10,7 @@ class ArticlesListController extends GetxController {
   final isSearchActive = false.obs;
   final searchQuery = ''.obs;
   final selectedCategory = 'Tous'.obs;
-  final selectedPostalCode = '75012'.obs;
+  final searchRadiusKm = 5.0.obs;
   final categories = [
     'Tous',
     'Vetements',
@@ -33,7 +33,6 @@ class ArticlesListController extends GetxController {
     try {
       final result = await repository.getArticles(
         category: selectedCategory.value == 'Tous' ? null : selectedCategory.value,
-        postalCode: selectedPostalCode.value,
         searchQuery: searchQuery.value,
       );
       articles.value = result;
@@ -49,8 +48,8 @@ class ArticlesListController extends GetxController {
     loadArticles();
   }
 
-  void changePostalCode(String code) {
-    selectedPostalCode.value = code;
+  void changeSearchRadius(double radius) {
+    searchRadiusKm.value = radius;
     loadArticles();
   }
 

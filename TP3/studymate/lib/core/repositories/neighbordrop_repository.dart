@@ -6,6 +6,25 @@ import '../models/conversation.dart';
 import '../models/message.dart';
 
 class NeighbordropRepository {
+  // Favoris
+  final RxSet<String> favoriteArticleIds = <String>{}.obs;
+
+  void toggleFavorite(String articleId) {
+    if (favoriteArticleIds.contains(articleId)) {
+      favoriteArticleIds.remove(articleId);
+    } else {
+      favoriteArticleIds.add(articleId);
+    }
+  }
+
+  bool isFavorite(String articleId) {
+    return favoriteArticleIds.contains(articleId);
+  }
+
+  List<Article> getFavoriteArticles() {
+    return _mockArticles.where((a) => favoriteArticleIds.contains(a.id)).toList();
+  }
+
   // ====================================================
   // MOCK USERS  (12 utilisateurs sur 4 quartiers)
   // ====================================================
@@ -17,7 +36,8 @@ class NeighbordropRepository {
       lastName: 'Dupont',
       photoUrl: 'https://i.pravatar.cc/150?img=11',
       postalCode: '75012',
-      neighborhood: 'Bercy',
+      latitude: 48.884380,
+      longitude: 2.361140,
       bio: 'Aime partager avec les voisins et donner une seconde vie aux objets!',
       memberRating: 4.5,
       memberSince: 2,
@@ -30,7 +50,8 @@ class NeighbordropRepository {
       lastName: 'Martin',
       photoUrl: 'https://i.pravatar.cc/150?img=5',
       postalCode: '75012',
-      neighborhood: 'Bercy',
+      latitude: 48.890575,
+      longitude: 2.366483,
       bio: 'Passionnee de deco et de mode. Echange volontiers!',
       memberRating: 4.8,
       memberSince: 1,
@@ -43,7 +64,8 @@ class NeighbordropRepository {
       lastName: 'Bernard',
       photoUrl: 'https://i.pravatar.cc/150?img=15',
       postalCode: '75012',
-      neighborhood: 'Nation',
+      latitude: 48.853214,
+      longitude: 2.344251,
       bio: 'Sportif qui se debarrasse de ses anciens equipements.',
       memberRating: 4.2,
       memberSince: 3,
@@ -57,7 +79,8 @@ class NeighbordropRepository {
       lastName: 'Renard',
       photoUrl: 'https://i.pravatar.cc/150?img=47',
       postalCode: '75013',
-      neighborhood: 'Butte-aux-Cailles',
+      latitude: 48.857706,
+      longitude: 2.379128,
       bio: 'Artiste et brocantrice dans lame. Adore chiner et partager.',
       memberRating: 4.9,
       memberSince: 4,
@@ -70,7 +93,8 @@ class NeighbordropRepository {
       lastName: 'Petit',
       photoUrl: 'https://i.pravatar.cc/150?img=33',
       postalCode: '75013',
-      neighborhood: 'Olympiades',
+      latitude: 48.902557,
+      longitude: 2.336702,
       bio: 'Etudiant cherchant a alleger son appart. Objets en parfait etat.',
       memberRating: 4.0,
       memberSince: 1,
@@ -83,7 +107,8 @@ class NeighbordropRepository {
       lastName: 'Diallo',
       photoUrl: 'https://i.pravatar.cc/150?img=44',
       postalCode: '75013',
-      neighborhood: 'Gobelins',
+      latitude: 48.863036,
+      longitude: 2.399038,
       bio: 'Couturiere amateur. Donne des vetements et accessoires faits main.',
       memberRating: 4.7,
       memberSince: 2,
@@ -97,7 +122,8 @@ class NeighbordropRepository {
       lastName: 'Lefevre',
       photoUrl: 'https://i.pravatar.cc/150?img=60',
       postalCode: '75014',
-      neighborhood: 'Montparnasse',
+      latitude: 48.847390,
+      longitude: 2.333360,
       bio: 'Architecte minimaliste. Je libere mon espace, vos gains !',
       memberRating: 4.6,
       memberSince: 5,
@@ -110,7 +136,8 @@ class NeighbordropRepository {
       lastName: 'Moreau',
       photoUrl: 'https://i.pravatar.cc/150?img=25',
       postalCode: '75014',
-      neighborhood: 'Alesia',
+      latitude: 48.824815,
+      longitude: 2.319588,
       bio: 'Maman de 3 enfants. Donne jouets et vetements en tres bon etat.',
       memberRating: 4.9,
       memberSince: 3,
@@ -123,7 +150,8 @@ class NeighbordropRepository {
       lastName: 'Garnier',
       photoUrl: 'https://i.pravatar.cc/150?img=57',
       postalCode: '75014',
-      neighborhood: 'Plaisance',
+      latitude: 48.862408,
+      longitude: 2.348228,
       bio: 'Ingenieur reconverti en jardinier urbain. Plantes et outils a donner.',
       memberRating: 4.3,
       memberSince: 2,
@@ -137,7 +165,8 @@ class NeighbordropRepository {
       lastName: 'Fontaine',
       photoUrl: 'https://i.pravatar.cc/150?img=49',
       postalCode: '75015',
-      neighborhood: 'Grenelle',
+      latitude: 48.833667,
+      longitude: 2.360007,
       bio: 'Cuisiniere passionnee. Donne electromenager et livres de recettes.',
       memberRating: 4.8,
       memberSince: 6,
@@ -150,7 +179,8 @@ class NeighbordropRepository {
       lastName: 'Mercier',
       photoUrl: 'https://i.pravatar.cc/150?img=68',
       postalCode: '75015',
-      neighborhood: 'Vaugirard',
+      latitude: 48.821555,
+      longitude: 2.366503,
       bio: 'Musicien. Instruments et materiel audio a trouver ici !',
       memberRating: 4.4,
       memberSince: 1,
@@ -163,7 +193,8 @@ class NeighbordropRepository {
       lastName: 'Chevalier',
       photoUrl: 'https://i.pravatar.cc/150?img=32',
       postalCode: '75015',
-      neighborhood: 'Beaugrenelle',
+      latitude: 48.836127,
+      longitude: 2.350801,
       bio: 'Retraitee active. Donne livres, vaisselle et mobilier anciens.',
       memberRating: 4.7,
       memberSince: 7,
@@ -182,7 +213,7 @@ class NeighbordropRepository {
       name: 'VTT Scott 26 pouces adulte',
       category: 'Sports',
       size: 'L',
-      weight: '12kg',
+
       description: 'VTT adulte Scott en tres bon etat. Freins a disque, 21 vitesses. Une egratignure sur le cadre mais rien de grave. Pneus neufs.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=600',
@@ -190,7 +221,8 @@ class NeighbordropRepository {
       donorName: 'Jean Dupont',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=11',
       postalCode: '75012',
-      neighborhood: 'Bercy',
+      latitude: 48.873725,
+      longitude: 2.345664,
       createdAt: DateTime.now().subtract(const Duration(days: 2)),
     ),
     Article(
@@ -198,7 +230,7 @@ class NeighbordropRepository {
       name: 'Table basse scandinave verre',
       category: 'Meuble',
       size: '120x60x40cm',
-      weight: '15kg',
+
       description: 'Table basse en bois clair avec plateau en verre trempe. Style scandinave epure. Tres bon etat. A venir chercher sur place.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600',
@@ -206,7 +238,8 @@ class NeighbordropRepository {
       donorName: 'Marie Martin',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=5',
       postalCode: '75012',
-      neighborhood: 'Bercy',
+      latitude: 48.862557,
+      longitude: 2.328834,
       createdAt: DateTime.now().subtract(const Duration(days: 1)),
     ),
     Article(
@@ -214,7 +247,7 @@ class NeighbordropRepository {
       name: 'Robe ete fleurie - taille S',
       category: 'Vetements',
       size: 'S',
-      weight: '300g',
+
       description: 'Belle robe ete a fleurs, jamais portee. Tissu leger coton bio. Couleur bleu marine et blanc. Marque Sezane.',
       condition: 'Neuf',
       photoUrl: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600',
@@ -222,7 +255,8 @@ class NeighbordropRepository {
       donorName: 'Marie Martin',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=5',
       postalCode: '75012',
-      neighborhood: 'Bercy',
+      latitude: 48.894254,
+      longitude: 2.386744,
       createdAt: DateTime.now().subtract(const Duration(days: 4)),
     ),
     Article(
@@ -230,7 +264,7 @@ class NeighbordropRepository {
       name: 'Lot romans policiers (8 livres)',
       category: 'Livres',
       size: 'Format poche',
-      weight: '2kg',
+
       description: 'Collection de romans policiers francais et traduits. Auteurs: Camilleri, Nesbo, Vargas. Tous en bon etat.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600',
@@ -238,7 +272,8 @@ class NeighbordropRepository {
       donorName: 'Jean Dupont',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=11',
       postalCode: '75012',
-      neighborhood: 'Bercy',
+      latitude: 48.885831,
+      longitude: 2.312505,
       createdAt: DateTime.now().subtract(const Duration(days: 3)),
     ),
     Article(
@@ -246,7 +281,7 @@ class NeighbordropRepository {
       name: 'Trottinette electrique Xiaomi M365',
       category: 'Sports',
       size: 'Pliable',
-      weight: '12kg',
+
       description: 'Trottinette electrique Xiaomi M365. Autonomie ~25km. Batterie en bon etat. Quelques rayures cosmétiques. Chargeur inclus.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1587201892117-e55bd7a837ea?w=600',
@@ -254,7 +289,8 @@ class NeighbordropRepository {
       donorName: 'Thomas Bernard',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=15',
       postalCode: '75012',
-      neighborhood: 'Nation',
+      latitude: 48.900948,
+      longitude: 2.351182,
       createdAt: DateTime.now().subtract(const Duration(hours: 8)),
     ),
     Article(
@@ -262,7 +298,7 @@ class NeighbordropRepository {
       name: 'Casseroles inox - lot 12 pieces',
       category: 'Electromenager',
       size: 'Lot de 12',
-      weight: '5kg',
+
       description: 'Casseroles et poeles en inox 18/10. Compatibles toutes plaques dont induction. Marque Cristel. Tres bon etat.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1584990347449-a76c63db79a3?w=600',
@@ -270,7 +306,8 @@ class NeighbordropRepository {
       donorName: 'Thomas Bernard',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=15',
       postalCode: '75012',
-      neighborhood: 'Nation',
+      latitude: 48.863952,
+      longitude: 2.386735,
       createdAt: DateTime.now().subtract(const Duration(hours: 3)),
     ),
 
@@ -280,7 +317,7 @@ class NeighbordropRepository {
       name: 'Fauteuil velours vintage annees 70',
       category: 'Meuble',
       size: '70x80x90cm',
-      weight: '18kg',
+
       description: 'Superbe fauteuil annees 70 en velours vert bouteille. Structure bois massif. Quelques accrocs sur l accoudoir - sinon parfait.',
       condition: 'Occasion',
       photoUrl: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=600',
@@ -288,7 +325,8 @@ class NeighbordropRepository {
       donorName: 'Sophie Renard',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=47',
       postalCode: '75013',
-      neighborhood: 'Butte-aux-Cailles',
+      latitude: 48.896244,
+      longitude: 2.338481,
       createdAt: DateTime.now().subtract(const Duration(hours: 5)),
     ),
     Article(
@@ -296,7 +334,7 @@ class NeighbordropRepository {
       name: 'Tableau huile sur toile 60x80',
       category: 'Autres',
       size: '60x80cm',
-      weight: '2kg',
+
       description: 'Paysage breton peint a l huile par une artiste locale. Cadre bois dore inclus. Signe au dos.',
       condition: 'Neuf',
       photoUrl: 'https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=600',
@@ -304,7 +342,8 @@ class NeighbordropRepository {
       donorName: 'Sophie Renard',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=47',
       postalCode: '75013',
-      neighborhood: 'Butte-aux-Cailles',
+      latitude: 48.851604,
+      longitude: 2.328875,
       createdAt: DateTime.now().subtract(const Duration(hours: 1)),
     ),
     Article(
@@ -312,7 +351,7 @@ class NeighbordropRepository {
       name: 'Machine a coudre Singer electronique',
       category: 'Electromenager',
       size: '40x20x35cm',
-      weight: '6kg',
+
       description: 'Machine a coudre Singer electronique avec 25 points differents. Notice et accessoires inclus. Fonctionne parfaitement.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600',
@@ -320,7 +359,8 @@ class NeighbordropRepository {
       donorName: 'Amina Diallo',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=44',
       postalCode: '75013',
-      neighborhood: 'Gobelins',
+      latitude: 48.903235,
+      longitude: 2.400524,
       createdAt: DateTime.now().subtract(const Duration(days: 1, hours: 2)),
     ),
     Article(
@@ -328,7 +368,7 @@ class NeighbordropRepository {
       name: 'Manteau laine taille M - Maje',
       category: 'Vetements',
       size: 'M',
-      weight: '800g',
+
       description: 'Manteau en laine melangee, coupe classique. Couleur caramel. Doublure interieure. Marque Maje. Porte une saison.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600',
@@ -336,7 +376,8 @@ class NeighbordropRepository {
       donorName: 'Amina Diallo',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=44',
       postalCode: '75013',
-      neighborhood: 'Gobelins',
+      latitude: 48.846070,
+      longitude: 2.361262,
       createdAt: DateTime.now().subtract(const Duration(days: 5)),
     ),
     Article(
@@ -344,7 +385,7 @@ class NeighbordropRepository {
       name: 'Lego Star Wars 500 pieces - complet',
       category: 'Jouets',
       size: 'Boite 40x30cm',
-      weight: '1kg',
+
       description: 'Set Lego Star Wars complet avec notice d origine. Toutes les pieces presentes. Minifigurines incluses.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=600',
@@ -352,7 +393,8 @@ class NeighbordropRepository {
       donorName: 'Lucas Petit',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=33',
       postalCode: '75013',
-      neighborhood: 'Olympiades',
+      latitude: 48.898651,
+      longitude: 2.303225,
       createdAt: DateTime.now().subtract(const Duration(hours: 12)),
     ),
     Article(
@@ -360,7 +402,7 @@ class NeighbordropRepository {
       name: 'Encyclopedie cuisine Larousse (3 vol.)',
       category: 'Livres',
       size: 'Grand format',
-      weight: '4kg',
+
       description: 'Encyclopedie Larousse de la cuisine en 3 volumes. Recettes du monde entier. Superbes photos. Tres bel etat.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1481616756737-bc7b7b77c9ab?w=600',
@@ -368,7 +410,8 @@ class NeighbordropRepository {
       donorName: 'Lucas Petit',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=33',
       postalCode: '75013',
-      neighborhood: 'Olympiades',
+      latitude: 48.842105,
+      longitude: 2.367758,
       createdAt: DateTime.now().subtract(const Duration(days: 2)),
     ),
 
@@ -378,7 +421,7 @@ class NeighbordropRepository {
       name: 'Bureau chene massif avec tiroirs',
       category: 'Meuble',
       size: '140x70x78cm',
-      weight: '40kg',
+
       description: 'Bureau ancien en chene massif. 3 tiroirs avec serrures. Patine naturelle. Ideal home office. A demonter pour transport.',
       condition: 'Occasion',
       photoUrl: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600',
@@ -386,7 +429,8 @@ class NeighbordropRepository {
       donorName: 'Pierre Lefevre',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=60',
       postalCode: '75014',
-      neighborhood: 'Montparnasse',
+      latitude: 48.888985,
+      longitude: 2.350912,
       createdAt: DateTime.now().subtract(const Duration(days: 6)),
     ),
     Article(
@@ -394,7 +438,7 @@ class NeighbordropRepository {
       name: 'Aspirateur robot Roomba 891',
       category: 'Electromenager',
       size: 'Ø34cm',
-      weight: '3kg',
+
       description: 'Aspirateur robot iRobot Roomba 891. Connexion Wifi. Navigation intelligente. Batterie neuve remplacee il y a 3 mois.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1589006396812-3573dd5a4f0e?w=600',
@@ -402,7 +446,8 @@ class NeighbordropRepository {
       donorName: 'Pierre Lefevre',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=60',
       postalCode: '75014',
-      neighborhood: 'Montparnasse',
+      latitude: 48.822553,
+      longitude: 2.397957,
       createdAt: DateTime.now().subtract(const Duration(days: 1, hours: 5)),
     ),
     Article(
@@ -410,7 +455,7 @@ class NeighbordropRepository {
       name: 'Poussette Bugaboo Cameleon 3',
       category: 'Jouets',
       size: 'Standard',
-      weight: '9kg',
+
       description: 'Poussette Bugaboo Cameleon 3 en tres bon etat. Capote et assise lavees. Toutes les pieces et adaptateurs presentes.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=600',
@@ -418,7 +463,8 @@ class NeighbordropRepository {
       donorName: 'Claire Moreau',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=25',
       postalCode: '75014',
-      neighborhood: 'Alesia',
+      latitude: 48.889755,
+      longitude: 2.351312,
       createdAt: DateTime.now().subtract(const Duration(hours: 6)),
     ),
     Article(
@@ -426,7 +472,7 @@ class NeighbordropRepository {
       name: 'Lot vetements bebe 0-6 mois fille',
       category: 'Vetements',
       size: '0-6 mois',
-      weight: '500g',
+
       description: 'Lot de 15 pieces bebe fille. Bodies, pyjamas, chaussettes. Marques Petit Bateau et Jacadi. Laves et repasses.',
       condition: 'Neuf',
       photoUrl: 'https://images.unsplash.com/photo-1622290291165-0e6e5e98b848?w=600',
@@ -434,7 +480,8 @@ class NeighbordropRepository {
       donorName: 'Claire Moreau',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=25',
       postalCode: '75014',
-      neighborhood: 'Alesia',
+      latitude: 48.830229,
+      longitude: 2.343758,
       createdAt: DateTime.now().subtract(const Duration(days: 2, hours: 3)),
     ),
     Article(
@@ -442,7 +489,7 @@ class NeighbordropRepository {
       name: 'Velo de route carbone Merida',
       category: 'Sports',
       size: '54cm',
-      weight: '8kg',
+
       description: 'Velo de route Merida Scultura cadre carbone. Groupe Shimano 105. Roues aluminium. Revision recente chez le velo-iste.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=600',
@@ -450,7 +497,8 @@ class NeighbordropRepository {
       donorName: 'Yves Garnier',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=57',
       postalCode: '75014',
-      neighborhood: 'Plaisance',
+      latitude: 48.899752,
+      longitude: 2.383130,
       createdAt: DateTime.now().subtract(const Duration(days: 4)),
     ),
     Article(
@@ -458,7 +506,7 @@ class NeighbordropRepository {
       name: 'Collection Asterix complete (38 albums)',
       category: 'Livres',
       size: 'Grand format',
-      weight: '6kg',
+
       description: 'Collection complete Asterix 38 albums. Editions originales en tres bon etat. Quelques couvertures legerement abimees.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?w=600',
@@ -466,7 +514,8 @@ class NeighbordropRepository {
       donorName: 'Yves Garnier',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=57',
       postalCode: '75014',
-      neighborhood: 'Plaisance',
+      latitude: 48.881026,
+      longitude: 2.367508,
       createdAt: DateTime.now().subtract(const Duration(hours: 20)),
     ),
 
@@ -476,7 +525,7 @@ class NeighbordropRepository {
       name: 'KitchenAid Artisan rouge 4.8L',
       category: 'Electromenager',
       size: '36x22x35cm',
-      weight: '12kg',
+
       description: 'Robot patissier KitchenAid Artisan rouge. 10 vitesses, bol 4.8L. Livre avec fouet, crochet et feuille. Revision faite.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600',
@@ -484,7 +533,8 @@ class NeighbordropRepository {
       donorName: 'Nadia Fontaine',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=49',
       postalCode: '75015',
-      neighborhood: 'Grenelle',
+      latitude: 48.833688,
+      longitude: 2.319896,
       createdAt: DateTime.now().subtract(const Duration(hours: 4)),
     ),
     Article(
@@ -492,7 +542,7 @@ class NeighbordropRepository {
       name: 'Tapis yoga Lululemon + accessoires',
       category: 'Sports',
       size: '183x61cm',
-      weight: '2kg',
+
       description: 'Kit yoga complet : tapis antiderapant Lululemon, 2 blocs mousse, 1 sangle. Utilise 3 fois. Comme neuf.',
       condition: 'Neuf',
       photoUrl: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600',
@@ -500,7 +550,8 @@ class NeighbordropRepository {
       donorName: 'Nadia Fontaine',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=49',
       postalCode: '75015',
-      neighborhood: 'Grenelle',
+      latitude: 48.877102,
+      longitude: 2.317796,
       createdAt: DateTime.now().subtract(const Duration(hours: 2)),
     ),
     Article(
@@ -508,7 +559,7 @@ class NeighbordropRepository {
       name: 'Guitare acoustique Yamaha F310',
       category: 'Autres',
       size: 'Standard',
-      weight: '3kg',
+
       description: 'Guitare acoustique Yamaha F310 avec etui rigide. Cordes recentes changees il y a 2 mois. Son chaleureux et equilibre.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600',
@@ -516,7 +567,8 @@ class NeighbordropRepository {
       donorName: 'Kevin Mercier',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=68',
       postalCode: '75015',
-      neighborhood: 'Vaugirard',
+      latitude: 48.903012,
+      longitude: 2.371233,
       createdAt: DateTime.now().subtract(const Duration(days: 1, hours: 1)),
     ),
     Article(
@@ -524,7 +576,7 @@ class NeighbordropRepository {
       name: 'Pack jeux de societe (6 jeux)',
       category: 'Jouets',
       size: 'Lot de 6',
-      weight: '4kg',
+
       description: 'Lot : Catan, Ticket to Ride, Dixit, Cluedo, Uno, Dobble. Tous complets et en tres bon etat. Families bienvenue!',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1632501641765-e568d28b0015?w=600',
@@ -532,7 +584,8 @@ class NeighbordropRepository {
       donorName: 'Kevin Mercier',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=68',
       postalCode: '75015',
-      neighborhood: 'Vaugirard',
+      latitude: 48.856674,
+      longitude: 2.388774,
       createdAt: DateTime.now().subtract(const Duration(days: 2, hours: 4)),
     ),
     Article(
@@ -540,7 +593,7 @@ class NeighbordropRepository {
       name: 'Bibliotheque IKEA Billy blanche',
       category: 'Meuble',
       size: '80x28x202cm',
-      weight: '30kg',
+
       description: 'Bibliotheque IKEA Billy blanche 5 tablettes. A demonter pour transport. Aucun defaut. Vendue avec toutes les chevilles.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600',
@@ -548,7 +601,8 @@ class NeighbordropRepository {
       donorName: 'Isabelle Chevalier',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=32',
       postalCode: '75015',
-      neighborhood: 'Beaugrenelle',
+      latitude: 48.846090,
+      longitude: 2.386823,
       createdAt: DateTime.now().subtract(const Duration(days: 3)),
     ),
     Article(
@@ -556,7 +610,7 @@ class NeighbordropRepository {
       name: 'Parka Columbia imperméable - L',
       category: 'Vetements',
       size: 'L',
-      weight: '1.2kg',
+
       description: 'Parka outdoor imperméable Columbia, doublure polaire, capuche amovible. Couleur kaki. Parfait etat pour la montagne.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600',
@@ -564,7 +618,8 @@ class NeighbordropRepository {
       donorName: 'Kevin Mercier',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=68',
       postalCode: '75015',
-      neighborhood: 'Vaugirard',
+      latitude: 48.853778,
+      longitude: 2.359033,
       createdAt: DateTime.now().subtract(const Duration(days: 8)),
     ),
     Article(
@@ -572,7 +627,7 @@ class NeighbordropRepository {
       name: 'Imprimante laser HP LaserJet Pro',
       category: 'Electromenager',
       size: '38x25x22cm',
-      weight: '7kg',
+
       description: 'Imprimante laser HP LaserJet Pro. Recto-verso auto, Wi-Fi. Cartouche remplacee recemment. Fonctionne parfaitement.',
       condition: 'Bon etat',
       photoUrl: 'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=600',
@@ -580,7 +635,8 @@ class NeighbordropRepository {
       donorName: 'Isabelle Chevalier',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=32',
       postalCode: '75015',
-      neighborhood: 'Beaugrenelle',
+      latitude: 48.853645,
+      longitude: 2.397699,
       createdAt: DateTime.now().subtract(const Duration(days: 5)),
     ),
     Article(
@@ -588,7 +644,7 @@ class NeighbordropRepository {
       name: 'Tapis persan laine 200x300cm',
       category: 'Autres',
       size: '200x300cm',
-      weight: '8kg',
+
       description: 'Tapis en laine fait main, motifs floraux. Couleurs bordeaux et or. Quelques traces d usure aux angles. Authentique.',
       condition: 'Occasion',
       photoUrl: 'https://images.unsplash.com/photo-1600166898405-da9535204843?w=600',
@@ -596,7 +652,8 @@ class NeighbordropRepository {
       donorName: 'Isabelle Chevalier',
       donorPhotoUrl: 'https://i.pravatar.cc/150?img=32',
       postalCode: '75015',
-      neighborhood: 'Beaugrenelle',
+      latitude: 48.845785,
+      longitude: 2.309954,
       createdAt: DateTime.now().subtract(const Duration(days: 7)),
     ),
   ];

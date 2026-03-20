@@ -29,7 +29,7 @@ class PartnerCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppDimens.borderRadiusCards),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -106,3 +106,4 @@ class PartnerCard extends StatelessWidget {
     );
   }
 }
+

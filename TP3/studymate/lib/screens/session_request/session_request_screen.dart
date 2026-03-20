@@ -236,7 +236,7 @@ class SessionRequestScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   margin: const EdgeInsets.only(bottom: 12),
                   decoration: BoxDecoration(
-                    color: AppColors.error.withOpacity(0.1),
+                    color: AppColors.error.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -259,7 +259,7 @@ class SessionRequestScreen extends StatelessWidget {
                   onPressed: controller.isSending.value ? null : controller.sendRequest,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    disabledBackgroundColor: AppColors.primary.withOpacity(0.5),
+                    disabledBackgroundColor: AppColors.primary.withValues(alpha: 0.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(AppDimens.borderRadiusButtons),
                     ),
@@ -314,7 +314,7 @@ class SessionRequestScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               color: controller.selectedLocation.value == value
-                  ? AppColors.primary.withOpacity(0.1)
+                  ? AppColors.primary.withValues(alpha: 0.1)
                   : AppColors.surface,
               borderRadius: BorderRadius.circular(AppDimens.borderRadiusButtons),
               border: Border.all(
@@ -350,3 +350,4 @@ class SessionRequestScreen extends StatelessWidget {
         ));
   }
 }
+

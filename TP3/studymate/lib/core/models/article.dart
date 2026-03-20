@@ -3,7 +3,6 @@ class Article {
   final String name;
   final String category;
   final String size;
-  final String weight;
   final String description;
   final String condition; // Neuf, Bon etat, Occasion
   final String photoUrl;
@@ -11,7 +10,8 @@ class Article {
   final String donorName;
   final String donorPhotoUrl;
   final String postalCode;
-  final String neighborhood;
+  final double latitude;
+  final double longitude;
   final DateTime createdAt;
 
   Article({
@@ -19,7 +19,6 @@ class Article {
     required this.name,
     required this.category,
     required this.size,
-    required this.weight,
     required this.description,
     required this.condition,
     required this.photoUrl,
@@ -27,7 +26,8 @@ class Article {
     required this.donorName,
     required this.donorPhotoUrl,
     required this.postalCode,
-    required this.neighborhood,
+    required this.latitude,
+    required this.longitude,
     required this.createdAt,
   });
 
@@ -37,7 +37,6 @@ class Article {
       name: json['name'] ?? '',
       category: json['category'] ?? '',
       size: json['size'] ?? '',
-      weight: json['weight'] ?? '',
       description: json['description'] ?? '',
       condition: json['condition'] ?? 'Bon etat',
       photoUrl: json['photoUrl'] ?? '',
@@ -45,7 +44,8 @@ class Article {
       donorName: json['donorName'] ?? '',
       donorPhotoUrl: json['donorPhotoUrl'] ?? '',
       postalCode: json['postalCode'] ?? '',
-      neighborhood: json['neighborhood'] ?? '',
+      latitude: (json['latitude'] ?? 0.0).toDouble(),
+      longitude: (json['longitude'] ?? 0.0).toDouble(),
       createdAt: DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now(),
     );
   }
@@ -56,7 +56,6 @@ class Article {
       'name': name,
       'category': category,
       'size': size,
-      'weight': weight,
       'description': description,
       'condition': condition,
       'photoUrl': photoUrl,
@@ -64,7 +63,8 @@ class Article {
       'donorName': donorName,
       'donorPhotoUrl': donorPhotoUrl,
       'postalCode': postalCode,
-      'neighborhood': neighborhood,
+      'latitude': latitude,
+      'longitude': longitude,
       'createdAt': createdAt.toIso8601String(),
     };
   }

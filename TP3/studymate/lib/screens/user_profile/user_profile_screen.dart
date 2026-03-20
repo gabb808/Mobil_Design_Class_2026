@@ -6,7 +6,11 @@ import '../../shared/theme/app_text_styles.dart';
 import 'user_profile_controller.dart';
 
 class UserProfileScreen extends GetView<UserProfileController> {
-  const UserProfileScreen({super.key});
+  final String? tagOverride;
+  const UserProfileScreen({super.key, this.tagOverride});
+
+  @override
+  String? get tag => tagOverride;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +19,9 @@ class UserProfileScreen extends GetView<UserProfileController> {
         elevation: 0,
         backgroundColor: AppColors.primary,
         title: Obx(() => Text(
-          controller.isCurrentUser.value ? 'Mon Profil' : 'Profil Voisin',
-          style: AppTextStyles.heading2.copyWith(color: Colors.white),
-        )),
+              controller.isCurrentUser.value ? 'Mon Profil' : 'Profil Voisin',
+              style: AppTextStyles.heading2.copyWith(color: Colors.white),
+            )),
       ),
       body: Obx(
         () {
@@ -31,13 +35,13 @@ class UserProfileScreen extends GetView<UserProfileController> {
 
           final user = controller.user.value;
           if (user == null) {
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                  Icon(Icons.error_outline, size: 64, color: Colors.red),
                   SizedBox(height: AppDimens.paddingM),
-                  const Text('Impossible de charger le profil'),
+                  Text('Impossible de charger le profil'),
                 ],
               ),
             );
@@ -48,25 +52,20 @@ class UserProfileScreen extends GetView<UserProfileController> {
               children: [
                 // Header profile card
                 Container(
-                  color: AppColors.primary.withOpacity(0.1),
-                  padding: EdgeInsets.all(AppDimens.paddingM),
+                  color: AppColors.primary.withValues(alpha: 0.1),
+                  padding: const EdgeInsets.all(AppDimens.paddingM),
                   child: Column(
                     children: [
                       CircleAvatar(
                         radius: 60,
                         backgroundImage: NetworkImage(user.photoUrl),
                       ),
-                      SizedBox(height: AppDimens.paddingM),
+                      const SizedBox(height: AppDimens.paddingM),
                       Text(
                         user.fullName,
                         style: AppTextStyles.heading1,
                       ),
-                      SizedBox(height: AppDimens.paddingXS),
-                      Text(
-                        'Quartier: ${user.neighborhood}',
-                        style: AppTextStyles.bodyMedium,
-                      ),
-                      SizedBox(height: AppDimens.paddingS),
+                      const SizedBox(height: AppDimens.paddingS),
                       Text(
                         user.bio,
                         style: AppTextStyles.bodySmall,
@@ -76,11 +75,11 @@ class UserProfileScreen extends GetView<UserProfileController> {
                   ),
                 ),
 
-                SizedBox(height: AppDimens.paddingM),
+                const SizedBox(height: AppDimens.paddingM),
 
                 // Stats
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
+                  padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -100,12 +99,13 @@ class UserProfileScreen extends GetView<UserProfileController> {
                   ),
                 ),
 
-                SizedBox(height: AppDimens.paddingL),
+                const SizedBox(height: AppDimens.paddingL),
 
                 // Buttons
                 if (controller.isCurrentUser.value)
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
                     child: Column(
                       children: [
                         SizedBox(
@@ -113,7 +113,7 @@ class UserProfileScreen extends GetView<UserProfileController> {
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: AppDimens.paddingM),
                             ),
                             icon: const Icon(Icons.edit, color: Colors.white),
@@ -127,13 +127,13 @@ class UserProfileScreen extends GetView<UserProfileController> {
                             onPressed: () => controller.editProfile(),
                           ),
                         ),
-                        SizedBox(height: AppDimens.paddingS),
+                        const SizedBox(height: AppDimens.paddingS),
                         SizedBox(
                           width: double.infinity,
                           child: OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: AppColors.primary),
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: AppDimens.paddingM),
                             ),
                             icon: const Icon(Icons.shopping_bag,
@@ -148,19 +148,40 @@ class UserProfileScreen extends GetView<UserProfileController> {
                             onPressed: () => controller.goToMyArticles(),
                           ),
                         ),
-                        SizedBox(height: AppDimens.paddingL),
+                        const SizedBox(height: AppDimens.paddingS),
+                        SizedBox(
+                          width: double.infinity,
+                          child: OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                              side: const BorderSide(color: AppColors.primary),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: AppDimens.paddingM),
+                            ),
+                            icon: const Icon(Icons.favorite,
+                                color: AppColors.primary),
+                            label: const Text(
+                              'Mes favoris',
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () => Get.toNamed('/my-favorites'),
+                          ),
+                        ),
+                        const SizedBox(height: AppDimens.paddingL),
                       ],
                     ),
                   ),
 
-                SizedBox(height: AppDimens.paddingL),
+                const SizedBox(height: AppDimens.paddingL),
 
                 // Info card
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
+                  padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
                   child: Card(
                     child: Padding(
-                      padding: EdgeInsets.all(AppDimens.paddingM),
+                      padding: const EdgeInsets.all(AppDimens.paddingM),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -168,14 +189,10 @@ class UserProfileScreen extends GetView<UserProfileController> {
                             'Informations',
                             style: AppTextStyles.heading2,
                           ),
-                          SizedBox(height: AppDimens.paddingM),
+                          const SizedBox(height: AppDimens.paddingM),
                           _buildInfoRow(
                             'Code postal',
                             user.postalCode,
-                          ),
-                          _buildInfoRow(
-                            'Quartier',
-                            user.neighborhood,
                           ),
                           _buildInfoRow(
                             'Membre depuis',
@@ -187,7 +204,7 @@ class UserProfileScreen extends GetView<UserProfileController> {
                   ),
                 ),
 
-                SizedBox(height: AppDimens.paddingL),
+                const SizedBox(height: AppDimens.paddingL),
               ],
             ),
           );
@@ -205,7 +222,7 @@ class UserProfileScreen extends GetView<UserProfileController> {
             color: AppColors.primary,
           ),
         ),
-        SizedBox(height: AppDimens.paddingXS),
+        const SizedBox(height: AppDimens.paddingXS),
         Text(
           label,
           style: AppTextStyles.bodySmall,
@@ -216,7 +233,7 @@ class UserProfileScreen extends GetView<UserProfileController> {
 
   Widget _buildInfoRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.only(bottom: AppDimens.paddingS),
+      padding: const EdgeInsets.only(bottom: AppDimens.paddingS),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -232,3 +249,4 @@ class UserProfileScreen extends GetView<UserProfileController> {
     );
   }
 }
+

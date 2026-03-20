@@ -13,7 +13,9 @@ import 'screens/user_profile/user_profile_screen.dart';
 import 'screens/user_profile/edit_profile_controller.dart';
 import 'screens/user_profile/edit_profile_screen.dart';
 import 'screens/user_profile/my_articles_controller.dart';
-import 'screens/user_profile/my_articles_screen.dart';
+import "screens/user_profile/my_articles_screen.dart";
+import 'screens/user_profile/my_favorites_controller.dart';
+import 'screens/user_profile/my_favorites_screen.dart';
 import 'screens/messages/conversations_controller.dart';
 import 'screens/messages/conversations_screen.dart';
 import 'screens/messages/messages_controller.dart';
@@ -86,6 +88,19 @@ class NeighborDropApp extends StatelessWidget {
           }),
         ),
         GetPage(
+          name: '/profile',
+          page: () {
+            final String? userId = Get.arguments;
+            final tag = userId?.toString() ?? 'other';
+            return UserProfileScreen(tagOverride: tag);
+          },
+          binding: BindingsBuilder(() {
+            final String? userId = Get.arguments;
+            final tag = userId?.toString() ?? 'other';
+            Get.lazyPut(() => UserProfileController(), tag: tag);
+          }),
+        ),
+        GetPage(
           name: '/edit-profile',
           page: () => const EditProfileScreen(),
           binding: BindingsBuilder(() {
@@ -97,6 +112,13 @@ class NeighborDropApp extends StatelessWidget {
           page: () => const MyArticlesScreen(),
           binding: BindingsBuilder(() {
             Get.lazyPut(() => MyArticlesController());
+          }),
+        ),
+        GetPage(
+          name: '/my-favorites',
+          page: () => const MyFavoritesScreen(),
+          binding: BindingsBuilder(() {
+            Get.lazyPut(() => MyFavoritesController());
           }),
         ),
       ],
@@ -185,3 +207,4 @@ class AppBindings extends Bindings {
     Get.put(NeighbordropRepository());
   }
 }
+

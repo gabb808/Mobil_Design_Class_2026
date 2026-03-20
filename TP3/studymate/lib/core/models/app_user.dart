@@ -4,7 +4,8 @@ class AppUser {
   final String lastName;
   final String photoUrl;
   final String postalCode;
-  final String neighborhood;
+  final double latitude;
+  final double longitude;
   final String bio;
   final double memberRating;
   final int memberSince; // Nombre d'années
@@ -17,7 +18,8 @@ class AppUser {
     required this.lastName,
     required this.photoUrl,
     required this.postalCode,
-    required this.neighborhood,
+    required this.latitude,
+    required this.longitude,
     required this.bio,
     required this.memberRating,
     required this.memberSince,
@@ -32,7 +34,8 @@ class AppUser {
     String? lastName,
     String? photoUrl,
     String? postalCode,
-    String? neighborhood,
+    double? latitude,
+    double? longitude,
     String? bio,
   }) {
     return AppUser(
@@ -41,7 +44,8 @@ class AppUser {
       lastName: lastName ?? this.lastName,
       photoUrl: photoUrl ?? this.photoUrl,
       postalCode: postalCode ?? this.postalCode,
-      neighborhood: neighborhood ?? this.neighborhood,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
       bio: bio ?? this.bio,
       memberRating: memberRating,
       memberSince: memberSince,
@@ -57,7 +61,8 @@ class AppUser {
       lastName: json['lastName'] ?? '',
       photoUrl: json['photoUrl'] ?? '',
       postalCode: json['postalCode'] ?? '',
-      neighborhood: json['neighborhood'] ?? '',
+      latitude: (json['latitude'] ?? 0.0).toDouble(),
+      longitude: (json['longitude'] ?? 0.0).toDouble(),
       bio: json['bio'] ?? '',
       memberRating: (json['memberRating'] ?? 0.0).toDouble(),
       memberSince: json['memberSince'] ?? 0,
@@ -73,7 +78,8 @@ class AppUser {
       'lastName': lastName,
       'photoUrl': photoUrl,
       'postalCode': postalCode,
-      'neighborhood': neighborhood,
+      'latitude': latitude,
+      'longitude': longitude,
       'bio': bio,
       'memberRating': memberRating,
       'memberSince': memberSince,

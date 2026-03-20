@@ -23,7 +23,7 @@ class AvailabilitySlot extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary.withOpacity(0.1) : AppColors.background,
+          color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : AppColors.background,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: isSelected ? AppColors.primary : AppColors.divider,
@@ -50,3 +50,4 @@ class AvailabilitySlot extends StatelessWidget {
     );
   }
 }
+

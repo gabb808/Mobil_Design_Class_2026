@@ -1,4 +1,4 @@
-# BRIEF PO -- NeighborDrop
+﻿# BRIEF PO -- NeighborDrop
 
 ## Section 1 : Concept
 
@@ -8,11 +8,11 @@
 
 **2. C'est pour qui ?**
 
-> Les habitants d'un quartier (tous ages) qui veulent donner/troquer des articles avec leurs voisins plutôt que de les jeter.
+> Les habitants d'un quartier (tous ages) qui veulent donner/troquer des articles avec leurs voisins plutÃ´t que de les jeter.
 
 **3. Ca resout quel probleme ?**
 
-> Réduire les déchets en facilitant les dons et échanges entre voisins. Créer une communauté locale. Donner une seconde vie aux objets.
+> RÃ©duire les dÃ©chets en facilitant les dons et Ã©changes entre voisins. CrÃ©er une communautÃ© locale. Donner une seconde vie aux objets.
 
 **Client :** Association locale "Quartier Solidaire"
 
@@ -35,7 +35,8 @@
 > Filtre par quartier / code postal
 > Filtres par categorie horizontaux (Tous / Vetements / Livres / Electromenager / Jouets / Autres)
 > Liste de cards articles (photo, nom, categorie, taille/poids, nom du voisin)
-> Bouton "+" (ajouter un article) en bas a droite
+> Bouton "+" (ajouter un article)
+> Bouton Favori (coeur) sur chaque card
 > Bottom navigation (Accueil / Mes articles / Profil)
 
 **Wireframe :**
@@ -97,6 +98,7 @@
 > Description courte de l'article
 > Carte du donneur (photo, prenom, quartier, rating)
 > Bouton "Proposer un echange" (primary, sticky bottom)
+> Bouton Favori (coeur en haut à droite)
 > Bouton "Contacter le voisin" (secondary)
 
 **Wireframe :**
@@ -267,10 +269,11 @@
 
 ## Section 6 : Criteres de succes MVP
 
-1. ✓ L'utilisateur voit la liste des articles disponibles dans son quartier
-2. ✓ L'utilisateur peut filtrer les articles par categorie
-3. ✓ L'utilisateur peut voir le detail complet d'un article
-4. ✓ L'utilisateur peut poster un nouvel article avec photo, nom, categorie, taille/poids
-5. ✓ L'utilisateur peut proposer un echange sur un article
-6. ✓ L'utilisateur peut voir son profil et ses articles postes
-7. ✓ L'app gere les etats (loading, error, empty, success)
+1. âœ“ L'utilisateur voit la liste des articles disponibles dans son quartier
+2. âœ“ L'utilisateur peut filtrer les articles par categorie
+3. âœ“ L'utilisateur peut voir le detail complet d'un article
+4. âœ“ L'utilisateur peut poster un nouvel article avec photo, nom, categorie, taille/poids
+5. âœ“ L'utilisateur peut proposer un echange sur un article
+6. âœ“ L'utilisateur peut voir son profil et ses articles postes
+7. âœ“ L'app gere les etats (loading, error, empty, success)
+

@@ -92,14 +92,6 @@ class EditProfileScreen extends GetView<EditProfileController> {
                 return null;
               },
             ),
-            const SizedBox(height: AppDimens.paddingM),
-            _buildField(
-              label: 'Quartier',
-              controller: controller.neighborhoodCtrl,
-              icon: Icons.location_city_outlined,
-              validator: (v) =>
-                  v == null || v.trim().isEmpty ? 'Requis' : null,
-            ),
 
             const SizedBox(height: AppDimens.paddingL),
 

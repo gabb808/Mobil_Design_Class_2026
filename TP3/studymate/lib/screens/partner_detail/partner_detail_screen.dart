@@ -108,7 +108,7 @@ class PartnerDetailScreen extends StatelessWidget {
                           const SizedBox(width: 8),
                           Text(
                             '(${partner.averageRating}) ${partner.reviewCount} avis',
-                            style: AppTextStyles.body.copyWith(color: AppColors.surface.withOpacity(0.8)),
+                            style: AppTextStyles.body.copyWith(color: AppColors.surface.withValues(alpha: 0.8)),
                           ),
                         ],
                       ),
@@ -189,7 +189,7 @@ class PartnerDetailScreen extends StatelessWidget {
             color: AppColors.surface,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withValues(alpha: 0.1),
                 blurRadius: 8,
                 offset: const Offset(0, -2),
               ),
@@ -213,3 +213,4 @@ class PartnerDetailScreen extends StatelessWidget {
     );
   }
 }
+

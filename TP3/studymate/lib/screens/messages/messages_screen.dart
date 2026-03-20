@@ -109,8 +109,8 @@ class MessagesScreen extends GetView<MessagesController> {
                   vertical: AppDimens.paddingS,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.08),
-                  border: Border(
+                  color: AppColors.primary.withValues(alpha: 0.08),
+                  border: const Border(
                     bottom: BorderSide(color: AppColors.divider),
                   ),
                 ),
@@ -279,7 +279,7 @@ class _MessageBubble extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.06),
+                    color: Colors.black.withValues(alpha: 0.06),
                     blurRadius: 4,
                     offset: const Offset(0, 2),
                   ),
@@ -303,7 +303,7 @@ class _MessageBubble extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: isMine ? Colors.white.withOpacity(0.2) : Colors.grey[100],
+                        color: isMine ? Colors.white.withValues(alpha: 0.2) : Colors.grey[100],
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -383,7 +383,7 @@ class _MessageInput extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),
@@ -440,3 +440,4 @@ class _MessageInput extends StatelessWidget {
     );
   }
 }
+

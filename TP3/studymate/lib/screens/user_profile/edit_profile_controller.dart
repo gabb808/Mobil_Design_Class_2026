@@ -11,7 +11,6 @@ class EditProfileController extends GetxController {
   late final TextEditingController lastNameCtrl;
   late final TextEditingController bioCtrl;
   late final TextEditingController postalCodeCtrl;
-  late final TextEditingController neighborhoodCtrl;
 
   final isSaving = false.obs;
   final selectedPhotoUrl = ''.obs;
@@ -43,7 +42,6 @@ class EditProfileController extends GetxController {
     lastNameCtrl = TextEditingController(text: _original.lastName);
     bioCtrl = TextEditingController(text: _original.bio);
     postalCodeCtrl = TextEditingController(text: _original.postalCode);
-    neighborhoodCtrl = TextEditingController(text: _original.neighborhood);
     selectedPhotoUrl.value = _original.photoUrl;
   }
 
@@ -53,7 +51,6 @@ class EditProfileController extends GetxController {
     lastNameCtrl.dispose();
     bioCtrl.dispose();
     postalCodeCtrl.dispose();
-    neighborhoodCtrl.dispose();
     super.onClose();
   }
 
@@ -130,7 +127,6 @@ class EditProfileController extends GetxController {
         lastName: lastNameCtrl.text.trim(),
         bio: bioCtrl.text.trim(),
         postalCode: postalCodeCtrl.text.trim(),
-        neighborhood: neighborhoodCtrl.text.trim(),
         photoUrl: selectedPhotoUrl.value,
       );
       await repository.updateUser(updated);

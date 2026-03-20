@@ -93,7 +93,7 @@ class MessagesController extends GetxController {
   Future<void> _sendExchangeProposal(Article article) async {
     isSending.value = true;
     try {
-      final text = 'Je vous propose cet article en échange. Êtes-vous intéressé(e) ?';
+      const text = 'Je vous propose cet article en échange. Êtes-vous intéressé(e) ?';
       final msg = await repository.sendMessage(
         conversationId: conversation.value!.id,
         content: text,

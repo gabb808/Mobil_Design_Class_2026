@@ -38,7 +38,7 @@ class ConversationsScreen extends GetView<ConversationsController> {
                   size: 72,
                   color: Colors.grey[300],
                 ),
-                SizedBox(height: AppDimens.paddingM),
+                const SizedBox(height: AppDimens.paddingM),
                 Text(
                   'Aucune conversation',
                   style: AppTextStyles.bodyLarge.copyWith(
@@ -46,7 +46,7 @@ class ConversationsScreen extends GetView<ConversationsController> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: AppDimens.paddingS),
+                const SizedBox(height: AppDimens.paddingS),
                 Text(
                   'Contactez un voisin depuis une annonce\npour démarrer une conversation',
                   style: AppTextStyles.bodySmall.copyWith(
@@ -65,7 +65,7 @@ class ConversationsScreen extends GetView<ConversationsController> {
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: AppDimens.paddingS),
             itemCount: controller.conversations.length,
-            separatorBuilder: (_, __) => Divider(
+            separatorBuilder: (_, __) => const Divider(
               height: 1,
               color: AppColors.divider,
               indent: 80,
@@ -181,7 +181,7 @@ class ConversationTile extends StatelessWidget {
                   // Article context
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.inventory_2_outlined,
                         size: 12,
                         color: AppColors.primary,

@@ -4,6 +4,7 @@ import '../../core/models/article.dart';
 import '../../shared/theme/app_colors.dart';
 import '../../shared/theme/app_dimens.dart';
 import '../../shared/theme/app_text_styles.dart';
+import '../../core/repositories/neighbordrop_repository.dart';
 import 'articles_list_controller.dart';
 
 class ArticlesListScreen extends GetView<ArticlesListController> {
@@ -42,30 +43,14 @@ class ArticlesListScreen extends GetView<ArticlesListController> {
       ),
       body: Column(
         children: [
-          // Postal code selector
-          Padding(
-            padding: EdgeInsets.all(AppDimens.paddingM),
-            child: DropdownButton<String>(
-              isExpanded: true,
-              value: controller.selectedPostalCode.value,
-              items: ['75012', '75013', '75014', '75015'].map((code) {
-                return DropdownMenuItem(
-                  value: code,
-                  child: Text('Mon quartier: $code'),
-                );
-              }).toList(),
-              onChanged: (value) {
-                if (value != null) controller.changePostalCode(value);
-              },
-            ),
-          ),
+          
 
           // Category filter chips
           Obx(
             () => SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
+                padding: const EdgeInsets.symmetric(horizontal: AppDimens.paddingM),
                 child: Wrap(
                   spacing: AppDimens.paddingS,
                   children: controller.categories.map((category) {
@@ -98,7 +83,7 @@ class ArticlesListScreen extends GetView<ArticlesListController> {
                         const CircularProgressIndicator(
                           color: AppColors.primary,
                         ),
-                        SizedBox(height: AppDimens.paddingM),
+                        const SizedBox(height: AppDimens.paddingM),
                         Text(
                           'Chargement des articles...',
                           style: AppTextStyles.bodyLarge,
@@ -118,12 +103,12 @@ class ArticlesListScreen extends GetView<ArticlesListController> {
                           size: 64,
                           color: Colors.grey[300],
                         ),
-                        SizedBox(height: AppDimens.paddingM),
+                        const SizedBox(height: AppDimens.paddingM),
                         Text(
                           'Aucun article pour l\'instant',
                           style: AppTextStyles.bodyLarge,
                         ),
-                        SizedBox(height: AppDimens.paddingS),
+                        const SizedBox(height: AppDimens.paddingS),
                         Text(
                           'Revenez bientot ou elargissez votre recherche',
                           style: AppTextStyles.bodySmall.copyWith(
@@ -137,7 +122,7 @@ class ArticlesListScreen extends GetView<ArticlesListController> {
                 }
 
                 return ListView.builder(
-                  padding: EdgeInsets.all(AppDimens.paddingM),
+                  padding: const EdgeInsets.all(AppDimens.paddingM),
                   itemCount: controller.articles.length,
                   itemBuilder: (context, index) {
                     final article = controller.articles[index];
@@ -169,10 +154,11 @@ class ArticleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final repo = Get.find<NeighbordropRepository>();
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        margin: EdgeInsets.only(bottom: AppDimens.paddingM),
+        margin: const EdgeInsets.only(bottom: AppDimens.paddingM),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimens.borderRadius),
         ),
@@ -180,32 +166,58 @@ class ArticleCard extends StatelessWidget {
           children: [
             // Image
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(AppDimens.borderRadius),
                 bottomLeft: Radius.circular(AppDimens.borderRadius),
               ),
-              child: Image.network(
-                article.photoUrl,
-                width: 120,
-                height: 120,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
+              child: Stack(
+                children: [
+                  Image.network(
+                    article.photoUrl,
                     width: 120,
                     height: 120,
-                    color: Colors.grey[300],
-                    child: Icon(
-                      Icons.image_not_supported,
-                      color: Colors.grey[600],
-                    ),
-                  );
-                },
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: 120,
+                        height: 120,
+                        color: Colors.grey[300],
+                        child: Icon(
+                          Icons.image_not_supported,
+                          color: Colors.grey[600],
+                        ),
+                      );
+                    },
+                  ),
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Obx(() {
+                      final isFav = repo.isFavorite(article.id);
+                      return GestureDetector(
+                        onTap: () => repo.toggleFavorite(article.id),
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.8),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            isFav ? Icons.favorite : Icons.favorite_border,
+                            color: isFav ? Colors.red : Colors.grey[600],
+                            size: 20,
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                ],
               ),
             ),
             // Details
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(AppDimens.paddingM),
+                padding: const EdgeInsets.all(AppDimens.paddingM),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -215,16 +227,16 @@ class ArticleCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: AppDimens.paddingXS),
+                    const SizedBox(height: AppDimens.paddingXS),
                     Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: AppDimens.paddingXS,
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.secondary.withOpacity(0.2),
+                            color: AppColors.secondary.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
@@ -234,18 +246,19 @@ class ArticleCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: AppDimens.paddingXS),
+                        const SizedBox(width: AppDimens.paddingXS),
                         Text(
-                          article.weight,
+                          article.size,
                           style: AppTextStyles.bodySmall.copyWith(
                             color: Colors.grey[600],
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: AppDimens.paddingXS),
+                    const SizedBox(height: AppDimens.paddingXS),
                     GestureDetector(
-                      onTap: () => Get.toNamed('/profile', arguments: article.donorId),
+                      onTap: () =>
+                          Get.toNamed('/profile', arguments: article.donorId),
                       child: Text(
                         article.donorName,
                         style: AppTextStyles.bodySmall.copyWith(
@@ -264,3 +277,8 @@ class ArticleCard extends StatelessWidget {
     );
   }
 }
+
+
+
+
+

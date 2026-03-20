@@ -3,6 +3,8 @@ import '../models/study_partner.dart';
 import '../models/review.dart';
 import '../models/session_request.dart';
 
+int avatarCounter = 1;
+
 class StudymateRepository {
   List<String> _favoriteIds = [];
 
@@ -13,7 +15,7 @@ class StudymateRepository {
       id: 'partner_001',
       firstName: 'Marie',
       lastName: 'Dupont',
-      photoUrl: 'https://i.pravatar.cc/150?img=1',
+      photoUrl: 'https://ui-avatars.com/api/?name=Voisin+${avatarCounter++}&background=random',
       bio:
           'Etudiante en L3 Mathematiques a Paris-Saclay. J\'adore expliquer les concepts complexes de maniere simple. Specialisee en analyse et algebre lineaire.',
       mainSubject: 'Mathematiques',
@@ -31,7 +33,7 @@ class StudymateRepository {
       id: 'partner_002',
       firstName: 'Thomas',
       lastName: 'Martin',
-      photoUrl: 'https://i.pravatar.cc/150?img=3',
+      photoUrl: 'https://ui-avatars.com/api/?name=Voisin+${avatarCounter++}&background=random',
       bio:
           'En M1 Informatique, passionne de dev mobile et d\'IA. Je peux aider en Python, Java et Flutter.',
       mainSubject: 'Informatique',
@@ -48,7 +50,7 @@ class StudymateRepository {
       id: 'partner_003',
       firstName: 'Lea',
       lastName: 'Bernard',
-      photoUrl: 'https://i.pravatar.cc/150?img=5',
+      photoUrl: 'https://ui-avatars.com/api/?name=Voisin+${avatarCounter++}&background=random',
       bio:
           'L2 Physique-Chimie. La mecanique quantique n\'a (presque) plus de secrets pour moi !',
       mainSubject: 'Physique',
@@ -65,7 +67,7 @@ class StudymateRepository {
       id: 'partner_004',
       firstName: 'Hugo',
       lastName: 'Petit',
-      photoUrl: 'https://i.pravatar.cc/150?img=8',
+      photoUrl: 'https://ui-avatars.com/api/?name=Voisin+${avatarCounter++}&background=random',
       bio:
           'Etudiant en L3 LEA anglais-espagnol. Je donne des coups de main en langues et en traduction.',
       mainSubject: 'Langues',
@@ -83,7 +85,7 @@ class StudymateRepository {
       id: 'partner_005',
       firstName: 'Camille',
       lastName: 'Roux',
-      photoUrl: 'https://i.pravatar.cc/150?img=9',
+      photoUrl: 'https://ui-avatars.com/api/?name=Voisin+${avatarCounter++}&background=random',
       bio:
           'M1 Data Science. Stats, probabilites et machine learning sont mon quotidien. Toujours prete a expliquer !',
       mainSubject: 'Mathematiques',
@@ -101,7 +103,7 @@ class StudymateRepository {
       id: 'partner_006',
       firstName: 'Antoine',
       lastName: 'Garcia',
-      photoUrl: 'https://i.pravatar.cc/150?img=11',
+      photoUrl: 'https://ui-avatars.com/api/?name=Voisin+${avatarCounter++}&background=random',
       bio:
           'L2 Informatique. Fan de web dev et de bases de donnees. Je maitrise SQL, JavaScript et React.',
       mainSubject: 'Informatique',
@@ -118,7 +120,7 @@ class StudymateRepository {
       id: 'partner_007',
       firstName: 'Sarah',
       lastName: 'Moreau',
-      photoUrl: 'https://i.pravatar.cc/150?img=16',
+      photoUrl: 'https://ui-avatars.com/api/?name=Voisin+${avatarCounter++}&background=random',
       bio:
           'Etudiante en M2 Physique fondamentale. Je peux aider en mecanique, electromagnetisme et thermodynamique.',
       mainSubject: 'Physique',
@@ -321,3 +323,5 @@ class StudymateRepository {
     await prefs.setStringList('favorites', _favoriteIds);
   }
 }
+
+

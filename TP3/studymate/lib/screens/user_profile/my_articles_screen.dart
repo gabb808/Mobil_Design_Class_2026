@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/models/article.dart';
 import '../../shared/theme/app_colors.dart';
@@ -24,13 +24,6 @@ class MyArticlesScreen extends GetView<MyArticlesController> {
           'Mes annonces',
           style: AppTextStyles.heading2.copyWith(color: Colors.white),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add, color: Colors.white),
-            onPressed: () => Get.toNamed('/post-article'),
-            tooltip: 'Publier une annonce',
-          ),
-        ],
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -221,7 +214,7 @@ class _Chip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.12),
+        color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
@@ -235,3 +228,5 @@ class _Chip extends StatelessWidget {
     );
   }
 }
+
+

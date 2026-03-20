@@ -1,60 +1,53 @@
-# StudyMate
+﻿# NeighborDrop
 
-Application mobile Flutter permettant aux etudiants de trouver des partenaires d'etude.
+Application mobile Flutter de don et troc entre voisins.
 
 ## Contexte
 
-Projet realise pour l'association etudiante **Campus Connect** (~2000 etudiants). Les etudiants veulent reviser a plusieurs mais ne savent pas qui est disponible ni qui maitrise quelle matiere. StudyMate centralise la recherche de partenaires d'etude.
+Projet de refonte. L'application (initialement pensée autour d'un concept étudiant) s'appelle techniquement studymate mais porte le concept **NeighborDrop**. Elle permet aux habitants d'un quartier d'afficher, de donner et d'échanger des objets (articles) avec leurs voisins pour donner une seconde vie aux objets et réduire les déchets.
 
-## Fonctionnalites
+## Fonctionnalités (Récentes)
 
-- **Liste des partenaires** : parcourir les profils d'etudiants disponibles, filtrer par matiere, rechercher par nom
-- **Profil detaille** : consulter la bio, les matieres maitrisees, les disponibilites et les avis d'un partenaire
-- **Demande de session** : envoyer une demande en choisissant la matiere, le creneau, le lieu (bibliotheque/cafe/en ligne) et un message personnalise
-- **Favoris** : sauvegarder ses partenaires preferes (persistance locale)
-- **Gestion des etats** : loading, erreur, liste vide, mode offline (cache)
+- **Liste des articles** : Parcourir les articles disponibles, voir les catégories, et leur état (Neuf, Bon état, etc).
+- **Détail de l'article** : Voir la description de l'objet, consulter le profil du donneur et les détails.
+- **Messagerie** : Envoyer des messages au propriétaire, proposer des échanges (troc).
+- **Profil Utilisateur** : Gérer ses propres articles (Mes annonces).
+- **Nouveau : Favoris** : Sauvegarder ses articles préférés avec mise en évidence sur l'interface (icône cœur).
+- **Propreté du code** : Zéro avertissements d'analyse (0 problems), nettoyage des méthodes obsolètes (remplacement de withOpacity par withValues).
 
 ## Stack technique
 
 | Technologie | Usage |
 |------------|-------|
 | Flutter | Framework mobile cross-platform |
-| GetX | State management, routing, dependency injection |
-| SharedPreferences | Stockage local (favoris) |
-| Google Fonts | Typographie (Inter) |
-| flutter_rating_bar | Affichage des notes/etoiles |
+| GetX | State Management (Obx, Controllers), routing, dependency injection |
+| Google Fonts | Typographie |
+| Dart | Contraintes Dart 3+ strictes sans warnings |
 
 ## Structure du projet
 
-```
+`
 lib/
   core/
-    models/           -> StudyPartner, SessionRequest, Review
-    repositories/     -> StudymateRepository (donnees mockees)
+    models/           -> Article, User, Message, Conversation
+    repositories/     -> StudymateRepository (données mockées et favoris locaux)
   screens/
-    partners_list/    -> Ecran 1 : liste des partenaires
-    partner_detail/   -> Ecran 2 : profil detaille
-    session_request/  -> Ecran 3 : formulaire de demande
-    widgets/          -> Composants reutilisables
-  shared/theme/       -> Couleurs, dimensions, typographie
-  main.dart
-```
+    articles_list/    -> Accueil : liste des articles
+    article_detail/   -> Détail d'un article
+    messages/         -> Messagerie et propositions d'échange
+    user_profile/     -> Profil et mes annonces
+  shared/
+    theme/            -> Couleurs (AppColors), dimensions, typographie
+  main.dart           -> Point d'entrée et routes
+`
 
 ## Lancer le projet
 
-```bash
+`ash
 cd studymate
 flutter pub get
 flutter run
-```
-
-## Generer l'APK
-
-```bash
-flutter build apk --release
-```
-
-L'APK se trouve dans `build/app/outputs/flutter-apk/app-release.apk`.
+`
 
 ## Documents du projet
 
@@ -62,7 +55,3 @@ L'APK se trouve dans `build/app/outputs/flutter-apk/app-release.apk`.
 - [ARCHITECTURE.md](./architechture.md) - Choix techniques et structure
 - [DESIGN_SYSTEM.md](./Design_system.md) - Couleurs, typographie, composants
 - [CLAUDE.md](./CLAUDE.md) - Instructions IA
-
-## Equipe
-
-Projet realise dans le cadre du cours de Mobile Design - ESILV A4 S2.

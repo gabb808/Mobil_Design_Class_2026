@@ -25,7 +25,7 @@ class PostArticleScreen extends GetView<PostArticleController> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(AppDimens.paddingM),
+          padding: const EdgeInsets.all(AppDimens.paddingM),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -40,13 +40,13 @@ class PostArticleScreen extends GetView<PostArticleController> {
                   ),
                 ),
               ),
-              SizedBox(height: AppDimens.paddingM),
+              const SizedBox(height: AppDimens.paddingM),
 
               // Category dropdown
               _buildLabel('Categorie'),
               Obx(
                 () => DropdownButtonFormField(
-                  value: controller.selectedCategory.value,
+                  initialValue: controller.selectedCategory.value,
                   items: controller.categories.map((cat) {
                     return DropdownMenuItem(value: cat, child: Text(cat));
                   }).toList(),
@@ -60,26 +60,26 @@ class PostArticleScreen extends GetView<PostArticleController> {
                   ),
                 ),
               ),
-              SizedBox(height: AppDimens.paddingM),
+              const SizedBox(height: AppDimens.paddingM),
 
               // Size field
-              _buildLabel('Taille/Poids'),
+              _buildLabel('Taille'),
               TextField(
                 controller: controller.sizeController,
                 decoration: InputDecoration(
-                  hintText: 'Ex: 25kg, Taille M',
+                  hintText: 'Ex: L, XL, 40, etc.',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
               ),
-              SizedBox(height: AppDimens.paddingM),
+              const SizedBox(height: AppDimens.paddingM),
 
               // Condition dropdown
               _buildLabel('Etat'),
               Obx(
                 () => DropdownButtonFormField(
-                  value: controller.selectedCondition.value,
+                  initialValue: controller.selectedCondition.value,
                   items: controller.conditions.map((cond) {
                     return DropdownMenuItem(value: cond, child: Text(cond));
                   }).toList(),
@@ -93,7 +93,7 @@ class PostArticleScreen extends GetView<PostArticleController> {
                   ),
                 ),
               ),
-              SizedBox(height: AppDimens.paddingM),
+              const SizedBox(height: AppDimens.paddingM),
 
               // Description field
               _buildLabel('Description'),
@@ -107,7 +107,7 @@ class PostArticleScreen extends GetView<PostArticleController> {
                   ),
                 ),
               ),
-              SizedBox(height: AppDimens.paddingM),
+              const SizedBox(height: AppDimens.paddingM),
 
               // Photo button
               ElevatedButton.icon(
@@ -123,7 +123,7 @@ class PostArticleScreen extends GetView<PostArticleController> {
                   Get.snackbar('Info', 'Fonctionnalite non implementee (MVP)');
                 },
               ),
-              SizedBox(height: AppDimens.paddingM),
+              const SizedBox(height: AppDimens.paddingM),
 
               // Postal code field
               _buildLabel('Code postal'),
@@ -136,7 +136,7 @@ class PostArticleScreen extends GetView<PostArticleController> {
                   ),
                 ),
               ),
-              SizedBox(height: AppDimens.paddingL),
+              const SizedBox(height: AppDimens.paddingL),
 
               // Post button
               SizedBox(
@@ -145,7 +145,7 @@ class PostArticleScreen extends GetView<PostArticleController> {
                   () => ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: AppDimens.paddingM,
                       ),
                     ),
@@ -183,7 +183,7 @@ class PostArticleScreen extends GetView<PostArticleController> {
 
   Widget _buildLabel(String label) {
     return Padding(
-      padding: EdgeInsets.only(bottom: AppDimens.paddingS),
+      padding: const EdgeInsets.only(bottom: AppDimens.paddingS),
       child: Text(
         label,
         style: AppTextStyles.bodyLarge,
