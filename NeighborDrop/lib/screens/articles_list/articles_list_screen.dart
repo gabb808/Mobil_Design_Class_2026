@@ -4,7 +4,7 @@ import '../../core/models/article.dart';
 import '../../shared/theme/app_colors.dart';
 import '../../shared/theme/app_dimens.dart';
 import '../../shared/theme/app_text_styles.dart';
-import '../../core/repositories/neighbordrop_repository.dart';
+import '../../core/repositories/neighbordrop_repository_firestore.dart';
 import 'articles_list_controller.dart';
 
 class ArticlesListScreen extends GetView<ArticlesListController> {
@@ -193,23 +193,33 @@ class ArticleCard extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  Image.network(
-                    article.photoUrl,
-                    width: 120,
-                    height: 120,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: 120,
-                        height: 120,
-                        color: Colors.grey[300],
-                        child: Icon(
-                          Icons.image_not_supported,
-                          color: Colors.grey[600],
+                  article.photoUrl != null
+                      ? Image.network(
+                          article.photoUrl!,
+                          width: 120,
+                          height: 120,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: 120,
+                              height: 120,
+                              color: Colors.grey[300],
+                              child: Icon(
+                                Icons.image_not_supported,
+                                color: Colors.grey[600],
+                              ),
+                            );
+                          },
+                        )
+                      : Container(
+                          width: 120,
+                          height: 120,
+                          color: Colors.grey[300],
+                          child: Icon(
+                            Icons.image,
+                            color: Colors.grey[600],
+                          ),
                         ),
-                      );
-                    },
-                  ),
                   Positioned(
                     top: 8,
                     right: 8,

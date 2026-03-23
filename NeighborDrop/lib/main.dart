@@ -24,6 +24,9 @@ import 'screens/messages/conversations_controller.dart';
 import 'screens/messages/conversations_screen.dart';
 import 'screens/messages/messages_controller.dart';
 import 'screens/messages/messages_screen.dart';
+import 'screens/onboarding/splash_screen.dart';
+import 'screens/onboarding/registration_screen.dart';
+import 'screens/onboarding/registration_controller.dart';
 import 'shared/theme/app_colors.dart';
 
 void main() async {
@@ -55,8 +58,19 @@ class NeighborDropApp extends StatelessWidget {
         useMaterial3: true,
       ),
       initialBinding: AppBindings(),
-      initialRoute: '/',
+      initialRoute: '/splash',
       getPages: [
+        GetPage(
+          name: '/splash',
+          page: () => const SplashScreen(),
+        ),
+        GetPage(
+          name: '/registration',
+          page: () => const RegistrationScreen(),
+          binding: BindingsBuilder(() {
+            Get.lazyPut(() => RegistrationController());
+          }),
+        ),
         GetPage(
           name: '/',
           page: () => const MainShell(),
@@ -164,7 +178,7 @@ class _MainShellState extends State<MainShell> {
       ),
       bottomNavigationBar: Obx(() {
         final convCtrl = Get.find<ConversationsController>();
-        final unread = convCtrl.totalUnread;
+        final unread = convCtrl.totalUnread.value;
         return BottomNavigationBar(
           currentIndex: _currentIndex,
           selectedItemColor: AppColors.primary,

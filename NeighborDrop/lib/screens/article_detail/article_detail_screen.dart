@@ -47,17 +47,23 @@ class ArticleDetailScreen extends GetView<ArticleDetailController> {
                   width: double.infinity,
                   height: 300,
                   color: Colors.grey[300],
-                  child: Image.network(
-                    article.photoUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Icon(
-                        Icons.image_not_supported,
-                        size: 64,
-                        color: Colors.grey[600],
-                      );
-                    },
-                  ),
+                  child: article.photoUrl != null
+                      ? Image.network(
+                          article.photoUrl!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(
+                              Icons.image_not_supported,
+                              size: 64,
+                              color: Colors.grey[600],
+                            );
+                          },
+                        )
+                      : Icon(
+                          Icons.image,
+                          size: 64,
+                          color: Colors.grey[600],
+                        ),
                 ),
 
                 // Article details
@@ -169,9 +175,9 @@ class ArticleDetailScreen extends GetView<ArticleDetailController> {
                               vertical: AppDimens.paddingM,
                             ),
                           ),
-                          onPressed: () => controller.showExchangeProposals(context),
+                          onPressed: () => controller.contactVoisin(),
                           child: const Text(
-                            'Proposer un echange',
+                            'Contacter le voisin',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,

@@ -1,12 +1,15 @@
 import 'package:get/get.dart';
 import '../../core/models/conversation.dart';
 import '../../core/repositories/neighbordrop_repository_firestore.dart';
+import '../../core/services/user_session_service.dart';
 
 class ConversationsController extends GetxController {
   final NeighbordropRepository repository = Get.find<NeighbordropRepository>();
+  final UserSessionService userSessionService = Get.find<UserSessionService>();
 
-  final conversations = <Conversation>[].obs;
+  final conversations = <Map<String, dynamic>>[].obs;
   final isLoading = false.obs;
+  final totalUnread = 0.obs;  // Observable instead of getter
 
   @override
   void onInit() {
@@ -17,8 +20,10 @@ class ConversationsController extends GetxController {
   Future<void> loadConversations() async {
     isLoading.value = true;
     try {
-      final convs = await repository.getConversations();
+      final convs = await repository.getUserConversations(userSessionService.currentUserId);
       conversations.value = convs;
+      // Update totalUnread count
+      totalUnread.value = 0; // In future, calculate from conversations
     } catch (e) {
       Get.snackbar('Erreur', 'Impossible de charger les messages');
     } finally {
@@ -26,11 +31,8 @@ class ConversationsController extends GetxController {
     }
   }
 
-  Future<void> openConversation(Conversation conversation) async {
-    await Get.toNamed('/chat', arguments: conversation);
+  Future<void> openConversation(Map<String, dynamic> conversation) async {
+    await Get.toNamed('/messages', arguments: conversation);
     loadConversations();
   }
-
-  int get totalUnread =>
-      conversations.fold(0, (sum, c) => sum + c.unreadCount);
 }

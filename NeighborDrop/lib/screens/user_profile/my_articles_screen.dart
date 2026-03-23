@@ -137,19 +137,27 @@ class _MyArticleCard extends StatelessWidget {
                 topLeft: Radius.circular(AppDimens.borderRadius),
                 bottomLeft: Radius.circular(AppDimens.borderRadius),
               ),
-              child: Image.network(
-                article.photoUrl,
-                width: 110,
-                height: 110,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
-                  width: 110,
-                  height: 110,
-                  color: AppColors.divider,
-                  child: const Icon(Icons.inventory_2_outlined,
-                      size: 36, color: AppColors.primary),
-                ),
-              ),
+              child: article.photoUrl != null
+                  ? Image.network(
+                      article.photoUrl!,
+                      width: 110,
+                      height: 110,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        width: 110,
+                        height: 110,
+                        color: AppColors.divider,
+                        child: const Icon(Icons.inventory_2_outlined,
+                            size: 36, color: AppColors.primary),
+                      ),
+                    )
+                  : Container(
+                      width: 110,
+                      height: 110,
+                      color: AppColors.divider,
+                      child: const Icon(Icons.inventory_2_outlined,
+                          size: 36, color: AppColors.primary),
+                    ),
             ),
             // Info
             Expanded(

@@ -31,11 +31,23 @@ class ArticlesListController extends GetxController {
   Future<void> loadArticles() async {
     isLoading.value = true;
     try {
-      final result = await repository.getArticles(
-        category: selectedCategory.value == 'Tous' ? null : selectedCategory.value,
-        searchQuery: searchQuery.value,
-      );
-      articles.value = result;
+      final List<Article> result;
+      
+      if (selectedCategory.value == 'Tous') {
+        result = await repository.getAllArticles();
+      } else {
+        result = await repository.filterByCategory(selectedCategory.value);
+      }
+      
+      // Filter by search query if present
+      if (searchQuery.value.isNotEmpty) {
+        articles.value = result
+            .where((a) => a.name.toLowerCase().contains(searchQuery.value.toLowerCase()) ||
+                    a.description.toLowerCase().contains(searchQuery.value.toLowerCase()))
+            .toList();
+      } else {
+        articles.value = result;
+      }
     } catch (e) {
       Get.snackbar('Erreur', 'Impossible de charger les articles');
     } finally {
