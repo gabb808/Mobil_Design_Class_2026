@@ -35,29 +35,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'YOUR_WEB_API_KEY',
-    appId: 'YOUR_WEB_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    authDomain: 'YOUR_AUTH_DOMAIN',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    measurementId: 'YOUR_MEASUREMENT_ID',
+    apiKey: 'AIzaSyDo__YsSd8BKY81J1cJ3yJSE_Kh2_SG1k4',
+    appId: '1:525608339342:web:abcdef1234567890',
+    messagingSenderId: '525608339342',
+    projectId: 'neighbordrop-96b76',
+    authDomain: 'neighbordrop-96b76.firebaseapp.com',
+    storageBucket: 'neighbordrop-96b76.firebasestorage.app',
+    measurementId: 'G-XXXXXXXXXX',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'YOUR_ANDROID_API_KEY',
-    appId: 'YOUR_ANDROID_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
+    apiKey: 'AIzaSyDo__YsSd8BKY81J1cJ3yJSE_Kh2_SG1k4',
+    appId: '1:525608339342:android:01ab8a83b791c2853406df',
+    messagingSenderId: '525608339342',
+    projectId: 'neighbordrop-96b76',
+    storageBucket: 'neighbordrop-96b76.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'YOUR_iOS_API_KEY',
-    appId: 'YOUR_iOS_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
+    apiKey: 'AIzaSyDo__YsSd8BKY81J1cJ3yJSE_Kh2_SG1k4',
+    appId: '1:525608339342:ios:abcdef1234567890',
+    messagingSenderId: '525608339342',
+    projectId: 'neighbordrop-96b76',
+    storageBucket: 'neighbordrop-96b76.firebasestorage.app',
     iosBundleId: 'com.example.studymate',
   );
 }

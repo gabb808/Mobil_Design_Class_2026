@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "525608339342",
+    "project_id": "neighbordrop-96b76",
+    "storage_bucket": "neighbordrop-96b76.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525608339342:android:01ab8a83b791c2853406df",
+        "android_client_info": {
+          "package_name": "com.example.studymate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo__YsSd8BKY81J1cJ3yJSE_Kh2_SG1k4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
