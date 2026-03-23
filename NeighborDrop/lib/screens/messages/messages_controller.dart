@@ -67,7 +67,7 @@ class MessagesController extends GetxController {
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
-                        article.photoUrl,
+                        article.photoUrl ?? '',
                         width: 50,
                         height: 50,
                         fit: BoxFit.cover,
@@ -100,7 +100,7 @@ class MessagesController extends GetxController {
         isExchangeProposal: true,
         exchangeArticleId: article.id,
         exchangeArticleName: article.name,
-        exchangeArticlePhotoUrl: article.photoUrl,
+        exchangeArticlePhotoUrl: article.photoUrl ?? '',
       );
       messages.add(msg);
     } catch (e) {
@@ -119,7 +119,7 @@ class MessagesController extends GetxController {
         otherUserPhotoUrl: article.donorPhotoUrl,
         articleId: article.id,
         articleName: article.name,
-        articlePhotoUrl: article.photoUrl,
+        articlePhotoUrl: article.photoUrl ?? '',
       );
       conversation.value = conv;
       messages.value = List<Message>.from(conv.messages);

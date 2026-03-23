@@ -194,7 +194,7 @@ class ArticleCard extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.network(
-                    article.photoUrl,
+                    article.photoUrl ?? '',
                     width: 120,
                     height: 120,
                     fit: BoxFit.cover,

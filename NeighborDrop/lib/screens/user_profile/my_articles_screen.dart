@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/models/article.dart';
 import '../../shared/theme/app_colors.dart';
@@ -138,7 +138,7 @@ class _MyArticleCard extends StatelessWidget {
                 bottomLeft: Radius.circular(AppDimens.borderRadius),
               ),
               child: Image.network(
-                article.photoUrl,
+                article.photoUrl ?? '',
                 width: 110,
                 height: 110,
                 fit: BoxFit.cover,

@@ -64,7 +64,7 @@ class ArticleDetailController extends GetxController {
                   return ListTile(
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(myArticle.photoUrl, width: 50, height: 50, fit: BoxFit.cover),
+                      child: Image.network(myArticle.photoUrl ?? '', width: 50, height: 50, fit: BoxFit.cover),
                     ),
                     title: Text(myArticle.name),
                     subtitle: Text(myArticle.category),
@@ -93,7 +93,7 @@ class ArticleDetailController extends GetxController {
         otherUserPhotoUrl: article.value!.donorPhotoUrl,
         articleId: article.value!.id,
         articleName: article.value!.name,
-        articlePhotoUrl: article.value!.photoUrl,
+        articlePhotoUrl: article.value!.photoUrl ?? '',
       );
 
       await repository.sendMessage(
@@ -102,7 +102,7 @@ class ArticleDetailController extends GetxController {
         isExchangeProposal: true,
         exchangeArticleId: myArticle.id,
         exchangeArticleName: myArticle.name,
-        exchangeArticlePhotoUrl: myArticle.photoUrl,
+        exchangeArticlePhotoUrl: myArticle.photoUrl ?? '',
       );
 
       Get.snackbar('Succès', 'Proposition envoyée avec succès !');

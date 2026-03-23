@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import '../models/article.dart';
 import '../models/app_user.dart';
+import '../models/proposition.dart';
+import '../models/conversation.dart';
+import '../models/message.dart';
 
 class NeighbordropRepository {
   static final NeighbordropRepository _instance = NeighbordropRepository._internal();
@@ -14,10 +17,11 @@ class NeighbordropRepository {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   
-  // Données de référence (mock)
+  // Favoris (en local pour le moment)
   final RxSet<String> favoriteArticleIds = <String>{}.obs;
   
   final categories = <String>[
+    'Tous',
     'Vêtements',
     'Meuble',
     'Electromenager',
@@ -46,56 +50,46 @@ class NeighbordropRepository {
   }
 
   List<Article> getFavoriteArticles() {
-    // Placeholder - implémentation complète requise pour récupérer depuis Firestore
     return [];
   }
   
   Future<AppUser?> getCurrentUser() async {
-    // Placeholder - en production, récupérer l'utilisateur actuel via FirebaseAuth
-    return null;
+    // Utilisateur par défaut pour la démo (Marie Martin id=2)
+    return getUserById('2');
   }
 
-  Future<void> updateUser(AppUser user) async {
-    try {
-      await _firestore
-          .collection('users')
-          .doc(user.id)
-          .update(user.toFirestore());
-    } catch (e) {
-      print('Erreur lors de la mise à jour de l\'utilisateur: $e');
-      throw e;
-    }
-  }
-
-  Future<void> markConversationAsRead(String conversationId) async {
-    try {
-      // Implémentation optionnelle
-      print('Conversation $conversationId marquée comme lue');
-    } catch (e) {
-      print('Erreur lors du marquage comme lu: $e');
-    }
-  }
-  
   // ============ ARTICLES ============
   
-  /// Récupère tous les articles disponibles
-  Future<List<Article>> getAllArticles() async {
+  Future<RxList<Article>> getArticles({String? category, String? postalCode, String? searchQuery}) async {
     try {
-      final snapshot = await _firestore
-          .collection('articles')
-          .where('status', isEqualTo: 'available')
-          .get();
+      Query query = _firestore.collection('articles');
       
-      return snapshot.docs
-          .map((doc) => Article.fromFirestore(doc))
-          .toList();
+      if (category != null && category != 'Tous') {
+        query = query.where('category', isEqualTo: category);
+      }
+      
+      if (postalCode != null) {
+        query = query.where('postalCode', isEqualTo: postalCode);
+      }
+      
+      final snapshot = await query.get();
+      var articles = snapshot.docs.map((doc) => Article.fromFirestore(doc)).toList();
+      
+      if (searchQuery != null && searchQuery.isNotEmpty) {
+        final q = searchQuery.toLowerCase();
+        articles = articles.where((a) => 
+          a.name.toLowerCase().contains(q) || 
+          a.description.toLowerCase().contains(q)
+        ).toList();
+      }
+      
+      return articles.obs;
     } catch (e) {
       print('Erreur lors de la récupération des articles: $e');
-      return [];
+      return <Article>[].obs;
     }
   }
 
-  /// Récupère un article par son ID
   Future<Article?> getArticleById(String articleId) async {
     try {
       final doc = await _firestore.collection('articles').doc(articleId).get();
@@ -109,57 +103,7 @@ class NeighbordropRepository {
     }
   }
 
-  /// Crée un nouvel article
-  Future<String> createArticle(Article article) async {
-    try {
-      final articleData = article.toFirestore();
-      articleData['status'] = 'available'; // Ajouter le statut par défaut
-      final docRef = await _firestore.collection('articles').add(articleData);
-      return docRef.id;
-    } catch (e) {
-      print('Erreur lors de la création de l\'article: $e');
-      throw e;
-    }
-  }
-
-  /// Filtre les articles par catégorie
-  Future<List<Article>> filterByCategory(String category) async {
-    try {
-      final snapshot = await _firestore
-          .collection('articles')
-          .where('category', isEqualTo: category)
-          .where('status', isEqualTo: 'available')
-          .get();
-      
-      return snapshot.docs
-          .map((doc) => Article.fromFirestore(doc))
-          .toList();
-    } catch (e) {
-      print('Erreur lors du filtrage par catégorie: $e');
-      return [];
-    }
-  }
-
-  /// Filtre les articles par code postal
-  Future<List<Article>> filterByPostalCode(String postalCode) async {
-    try {
-      final snapshot = await _firestore
-          .collection('articles')
-          .where('postalCode', isEqualTo: postalCode)
-          .where('status', isEqualTo: 'available')
-          .get();
-      
-      return snapshot.docs
-          .map((doc) => Article.fromFirestore(doc))
-          .toList();
-    } catch (e) {
-      print('Erreur lors du filtrage par code postal: $e');
-      return [];
-    }
-  }
-
-  /// Récupère les articles d'un utilisateur
-  Future<List<Article>> getUserArticles(String userId) async {
+  Future<List<Article>> getArticlesByUser(String userId) async {
     try {
       final snapshot = await _firestore
           .collection('articles')
@@ -175,27 +119,19 @@ class NeighbordropRepository {
     }
   }
 
-  /// Alias pour getArticlesByUser - compatibilité avec mock repository
-  Future<List<Article>> getArticlesByUser(String userId) async {
-    return getUserArticles(userId);
-  }
-
-  /// Met à jour le statut d'un article
-  Future<void> updateArticleStatus(String articleId, String status) async {
+  Future<bool> createArticle(Article article) async {
     try {
-      await _firestore
-          .collection('articles')
-          .doc(articleId)
-          .update({'status': status});
+      final articleData = article.toFirestore();
+      await _firestore.collection('articles').add(articleData);
+      return true;
     } catch (e) {
-      print('Erreur lors de la mise à jour du statut: $e');
-      throw e;
+      print('Erreur lors de la création de l\'article: $e');
+      return false;
     }
   }
 
   // ============ UTILISATEURS ============
   
-  /// Récupère un utilisateur par son ID
   Future<AppUser?> getUserById(String userId) async {
     try {
       final doc = await _firestore.collection('users').doc(userId).get();
@@ -209,174 +145,185 @@ class NeighbordropRepository {
     }
   }
 
-  /// Crée un nouvel utilisateur
-  Future<void> createUser(String userId, AppUser user) async {
+  Future<bool> updateUser(AppUser user) async {
     try {
       await _firestore
           .collection('users')
-          .doc(userId)
-          .set(user.toFirestore());
+          .doc(user.id)
+          .update(user.toFirestore());
+      return true;
     } catch (e) {
-      print('Erreur lors de la création de l\'utilisateur: $e');
-      throw e;
+      print('Erreur lors de la mise à jour de l\'utilisateur: $e');
+      return false;
     }
   }
 
-  /// Met à jour le profil utilisateur
-  Future<void> updateUserProfile(String userId, Map<String, dynamic> updates) async {
-    try {
-      await _firestore
-          .collection('users')
-          .doc(userId)
-          .update(updates);
-    } catch (e) {
-      print('Erreur lors de la mise à jour du profil: $e');
-      throw e;
-    }
-  }
+  // ============ PROPOSITIONS ============
 
-  /// Ajoute un article aux favoris
-  Future<void> addToFavorites(String userId, String articleId) async {
+  Future<List<Proposition>> getPropositionsForArticle(String articleId) async {
     try {
-      await _firestore
-          .collection('users')
-          .doc(userId)
-          .update({
-            'favorites': FieldValue.arrayUnion([articleId])
-          });
-    } catch (e) {
-      print('Erreur lors de l\'ajout aux favoris: $e');
-      throw e;
-    }
-  }
-
-  /// Retire un article des favoris
-  Future<void> removeFromFavorites(String userId, String articleId) async {
-    try {
-      await _firestore
-          .collection('users')
-          .doc(userId)
-          .update({
-            'favorites': FieldValue.arrayRemove([articleId])
-          });
-    } catch (e) {
-      print('Erreur lors du retrait des favoris: $e');
-      throw e;
-    }
-  }
-
-  /// Récupère les favoris d'un utilisateur
-  Future<List<Article>> getUserFavorites(String userId) async {
-    try {
-      final userDoc = await _firestore.collection('users').doc(userId).get();
-      final favorites = List<String>.from(userDoc['favorites'] ?? []);
+      final snapshot = await _firestore
+          .collection('propositions')
+          .where('articleId', isEqualTo: articleId)
+          .get();
       
-      if (favorites.isEmpty) return [];
-      
-      final articles = <Article>[];
-      for (String articleId in favorites) {
-        final article = await getArticleById(articleId);
-        if (article != null) {
-          articles.add(article);
-        }
-      }
-      return articles;
+      return snapshot.docs
+          .map((doc) => Proposition.fromJson({...doc.data() as Map<String, dynamic>, 'id': doc.id}))
+          .toList();
     } catch (e) {
-      print('Erreur lors de la récupération des favoris: $e');
+      print('Erreur lors de la récupération des propositions: $e');
       return [];
     }
   }
 
   // ============ MESSAGERIE ============
   
-  /// Envoie un message
-  Future<void> sendMessage(
-      String conversationId,
-      String senderId,
-      String content) async {
+  Future<List<Conversation>> getConversations() async {
     try {
-      await _firestore
-          .collection('conversations')
-          .doc(conversationId)
-          .collection('messages')
-          .add({
-            'senderId': senderId,
-            'content': content,
-            'timestamp': FieldValue.serverTimestamp(),
-          });
-    } catch (e) {
-      print('Erreur lors de l\'envoi du message: $e');
-      throw e;
-    }
-  }
-
-  /// Récupère les messages d'une conversation
-  Future<List<Map<String, dynamic>>> getConversationMessages(
-      String conversationId) async {
-    try {
-      final snapshot = await _firestore
-          .collection('conversations')
-          .doc(conversationId)
-          .collection('messages')
-          .orderBy('timestamp', descending: false)
-          .get();
-      
-      return snapshot.docs
-          .map((doc) => doc.data())
-          .toList();
-    } catch (e) {
-      print('Erreur lors de la récupération des messages: $e');
-      return [];
-    }
-  }
-
-  /// Crée ou récupère une conversation
-  Future<String> getOrCreateConversation(
-      String userId1, 
-      String userId2) async {
-    try {
-      final conversationId = _generateConversationId(userId1, userId2);
-      final doc = await _firestore.collection('conversations').doc(conversationId).get();
-      
-      if (!doc.exists) {
-        await _firestore
-            .collection('conversations')
-            .doc(conversationId)
-            .set({
-              'participants': [userId1, userId2],
-              'createdAt': FieldValue.serverTimestamp(),
-              'lastMessage': null,
-            });
-      }
-      
-      return conversationId;
-    } catch (e) {
-      print('Erreur lors de la création de la conversation: $e');
-      throw e;
-    }
-  }
-
-  /// Récupère les conversations d'un utilisateur
-  Future<List<Map<String, dynamic>>> getUserConversations(String userId) async {
-    try {
+      final userId = '2'; 
       final snapshot = await _firestore
           .collection('conversations')
           .where('participants', arrayContains: userId)
           .get();
       
-      return snapshot.docs
-          .map((doc) => doc.data())
-          .toList();
+      List<Conversation> convs = [];
+      for (var doc in snapshot.docs) {
+        final data = doc.data();
+        
+        final msgSnapshot = await doc.reference
+            .collection('messages')
+            .orderBy('createdAt')
+            .get();
+        
+        final messages = msgSnapshot.docs
+            .map((m) => Message.fromJson({...m.data(), 'id': m.id}))
+            .toList();
+
+        convs.add(Conversation(
+          id: doc.id,
+          otherUserId: data['otherUserId'] ?? '',
+          otherUserName: data['otherUserName'] ?? '',
+          otherUserPhotoUrl: data['otherUserPhotoUrl'] ?? '',
+          articleId: data['articleId'] ?? '',
+          articleName: data['articleName'] ?? '',
+          articlePhotoUrl: data['articlePhotoUrl'] ?? '',
+          messages: messages,
+          updatedAt: (data['updatedAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+        ));
+      }
+      return convs;
     } catch (e) {
       print('Erreur lors de la récupération des conversations: $e');
       return [];
     }
   }
 
-  // ============ UTILITAIRES ============
-  
-  String _generateConversationId(String userId1, String userId2) {
-    final ids = [userId1, userId2]..sort();
-    return '${ids[0]}_${ids[1]}';
+  Future<Conversation> getOrCreateConversation({
+    required String otherUserId,
+    required String otherUserName,
+    required String otherUserPhotoUrl,
+    required String articleId,
+    required String articleName,
+    required String articlePhotoUrl,
+  }) async {
+    try {
+      final userId = '2'; 
+      final conversationId = _generateConversationId(userId, otherUserId, articleId);
+      final docRef = _firestore.collection('conversations').doc(conversationId);
+      final doc = await docRef.get();
+      
+      if (!doc.exists) {
+        final convData = {
+          'participants': [userId, otherUserId],
+          'otherUserId': otherUserId,
+          'otherUserName': otherUserName,
+          'otherUserPhotoUrl': otherUserPhotoUrl,
+          'articleId': articleId,
+          'articleName': articleName,
+          'articlePhotoUrl': articlePhotoUrl,
+          'createdAt': FieldValue.serverTimestamp(),
+          'updatedAt': FieldValue.serverTimestamp(),
+        };
+        await docRef.set(convData);
+        
+        return Conversation(
+          id: conversationId,
+          otherUserId: otherUserId,
+          otherUserName: otherUserName,
+          otherUserPhotoUrl: otherUserPhotoUrl,
+          articleId: articleId,
+          articleName: articleName,
+          articlePhotoUrl: articlePhotoUrl,
+          messages: [],
+          updatedAt: DateTime.now(),
+        );
+      } else {
+        final data = doc.data()!;
+        return Conversation(
+          id: doc.id,
+          otherUserId: data['otherUserId'] ?? '',
+          otherUserName: data['otherUserName'] ?? '',
+          otherUserPhotoUrl: data['otherUserPhotoUrl'] ?? '',
+          articleId: data['articleId'] ?? '',
+          articleName: data['articleName'] ?? '',
+          articlePhotoUrl: data['articlePhotoUrl'] ?? '',
+          messages: [], 
+          updatedAt: (data['updatedAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+        );
+      }
+    } catch (e) {
+      print('Erreur lors de la création de la conversation: $e');
+      throw e;
+    }
+  }
+
+  Future<Message> sendMessage({
+    required String conversationId,
+    required String content,
+    bool isExchangeProposal = false,
+    String? exchangeArticleId,
+    String? exchangeArticleName,
+    String? exchangeArticlePhotoUrl,
+  }) async {
+    try {
+      final userId = '2'; 
+      final msgData = {
+        'conversationId': conversationId,
+        'senderId': userId,
+        'senderName': 'Marie Martin',
+        'senderPhotoUrl': 'https://i.pravatar.cc/150?img=5',
+        'content': content,
+        'createdAt': DateTime.now().toIso8601String(),
+        'isRead': false,
+        'isExchangeProposal': isExchangeProposal,
+        'exchangeArticleId': exchangeArticleId,
+        'exchangeArticleName': exchangeArticleName,
+        'exchangeArticlePhotoUrl': exchangeArticlePhotoUrl,
+      };
+      
+      final docRef = await _firestore
+          .collection('conversations')
+          .doc(conversationId)
+          .collection('messages')
+          .add(msgData);
+      
+      await _firestore.collection('conversations').doc(conversationId).update({
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+
+      return Message.fromJson({...msgData, 'id': docRef.id});
+    } catch (e) {
+      print('Erreur lors de l\'envoi du message: $e');
+      throw e;
+    }
+  }
+
+  Future<void> markConversationAsRead(String conversationId) async {
+    print('Conversation $conversationId marquée comme lue');
+  }
+
+  String _generateConversationId(String u1, String u2, String artId) {
+    final ids = [u1, u2]..sort();
+    return '${ids[0]}_${ids[1]}_$artId';
   }
 }

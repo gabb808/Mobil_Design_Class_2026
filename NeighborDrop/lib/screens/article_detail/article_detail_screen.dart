@@ -48,7 +48,7 @@ class ArticleDetailScreen extends GetView<ArticleDetailController> {
                   height: 300,
                   color: Colors.grey[300],
                   child: Image.network(
-                    article.photoUrl,
+                    article.photoUrl ?? '',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Icon(
