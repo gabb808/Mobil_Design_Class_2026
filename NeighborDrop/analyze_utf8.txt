@@ -1,0 +1,121 @@
+﻿Analyzing studymate...                                          
+
+  error - Expected to find ',' - lib\screens\article_detail\article_detail_controller.dart:44:38 - expected_token
+  error - Too many positional arguments: 2 expected, but 5 found - lib\screens\article_detail\article_detail_controller.dart:44:38 - extra_positional_arguments_could_be_named
+  error - Undefined name 'avez' - lib\screens\article_detail\article_detail_controller.dart:44:38 - undefined_identifier
+  error - Expected to find ',' - lib\screens\article_detail\article_detail_controller.dart:44:43 - expected_token
+  error - Undefined name 'pas' - lib\screens\article_detail\article_detail_controller.dart:44:43 - undefined_identifier
+  error - Expected to find ',' - lib\screens\article_detail\article_detail_controller.dart:44:47 - expected_token
+  error - Undefined name 'd' - lib\screens\article_detail\article_detail_controller.dart:44:47 - undefined_identifier
+  error - Expected to find ')' - lib\screens\article_detail\article_detail_controller.dart:44:48 - expected_token
+  error - Expected to find ',' - lib\screens\article_detail\article_detail_controller.dart:112:46 - expected_token
+  error - Too many positional arguments: 2 expected, but 6 found - lib\screens\article_detail\article_detail_controller.dart:112:46 - extra_positional_arguments_could_be_named
+  error - Undefined name 'envoyer' - lib\screens\article_detail\article_detail_controller.dart:112:46 - undefined_identifier
+  error - Expected to find ',' - lib\screens\article_detail\article_detail_controller.dart:112:54 - expected_token
+  error - Undefined name 'la' - lib\screens\article_detail\article_detail_controller.dart:112:54 - undefined_identifier
+  error - Expected to find ',' - lib\screens\article_detail\article_detail_controller.dart:112:57 - expected_token
+  error - Undefined name 'proposition' - lib\screens\article_detail\article_detail_controller.dart:112:57 - undefined_identifier
+  error - Expected to find ',' - lib\screens\article_detail\article_detail_controller.dart:112:68 - expected_token
+  error - Expected to find ';' - lib\screens\article_detail\article_detail_controller.dart:112:68 - expected_token
+  error - Unterminated string literal - lib\screens\article_detail\article_detail_controller.dart:112:70 - unterminated_string_literal
+  error - Expected to find ')' - lib\screens\article_detail\article_detail_controller.dart:113:5 - expected_token
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:63:28 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:72:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:77:38 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\article_detail\article_detail_screen.dart:82:58 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:92:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:94:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:99:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:106:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:112:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:119:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:123:36 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:132:31 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:146:37 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:161:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:169:38 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:184:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\article_detail\article_detail_screen.dart:190:38 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:47:22 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:68:26 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:101:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:121:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:126:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:140:28 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:175:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:183:29 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:184:26 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:185:29 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:208:26 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:218:21 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:222:36 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\articles_list\articles_list_screen.dart:227:56 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:237:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\articles_list\articles_list_screen.dart:246:21 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\messages\conversations_screen.dart:41:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\messages\conversations_screen.dart:49:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\messages\conversations_screen.dart:68:42 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\messages\conversations_screen.dart:181:23 - prefer_const_constructors
+   info - Use 'const' for final variables initialized to a constant value - lib\screens\messages\messages_controller.dart:96:7 - prefer_const_declarations
+  error - Expected to find ',' - lib\screens\messages\messages_controller.dart:107:46 - expected_token
+  error - Too many positional arguments: 2 expected, but 6 found - lib\screens\messages\messages_controller.dart:107:46 - extra_positional_arguments_could_be_named
+  error - Undefined name 'envoyer' - lib\screens\messages\messages_controller.dart:107:46 - undefined_identifier
+  error - Expected to find ',' - lib\screens\messages\messages_controller.dart:107:54 - expected_token
+  error - Undefined name 'la' - lib\screens\messages\messages_controller.dart:107:54 - undefined_identifier
+  error - Expected to find ',' - lib\screens\messages\messages_controller.dart:107:57 - expected_token
+  error - Undefined name 'proposition' - lib\screens\messages\messages_controller.dart:107:57 - undefined_identifier
+  error - Expected to find ',' - lib\screens\messages\messages_controller.dart:107:68 - expected_token
+  error - Expected to find ';' - lib\screens\messages\messages_controller.dart:107:68 - expected_token
+  error - Unterminated string literal - lib\screens\messages\messages_controller.dart:107:70 - unterminated_string_literal
+  error - Expected to find ')' - lib\screens\messages\messages_controller.dart:108:5 - expected_token
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\messages\messages_screen.dart:109:44 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\messages\messages_screen.dart:110:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\messages\messages_screen.dart:111:29 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\messages\messages_screen.dart:279:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\messages\messages_screen.dart:303:54 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\messages\messages_screen.dart:383:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\partner_detail\partner_detail_screen.dart:111:89 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\partner_detail\partner_detail_screen.dart:192:37 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:28:20 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:43:15 - prefer_const_constructors
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\screens\post_article\post_article_screen.dart:49:19 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:63:15 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:76:15 - prefer_const_constructors
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\screens\post_article\post_article_screen.dart:82:19 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:96:15 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:110:15 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:126:15 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:139:15 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:148:32 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\post_article\post_article_screen.dart:186:16 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\session_request\session_request_screen.dart:239:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\session_request\session_request_screen.dart:262:64 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\session_request\session_request_screen.dart:317:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\user_profile\my_articles_screen.dart:224:22 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:34:20 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:35:22 - prefer_const_constructors
+   info - Use 'const' literals as arguments to constructors of '@immutable' classes - lib\screens\user_profile\user_profile_screen.dart:37:27 - prefer_const_literals_to_create_immutables
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:39:19 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\user_profile\user_profile_screen.dart:51:44 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:52:28 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:59:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:64:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:69:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:79:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:83:28 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:103:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:107:28 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:116:33 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:129:23 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:136:33 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:154:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:158:28 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:161:32 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:169:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:188:17 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:206:9 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\user_profile\user_profile_screen.dart:217:16 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\widgets\availability_slot.dart:26:49 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\widgets\partner_card.dart:32:35 - deprecated_member_use
+warning - Unused import: 'package:flutter/material.dart' - test\widget_test.dart:1:8 - unused_import
+
