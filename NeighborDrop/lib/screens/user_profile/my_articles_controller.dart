@@ -1,13 +1,15 @@
 import 'package:get/get.dart';
 import '../../core/models/article.dart';
-import '../../core/repositories/neighbordrop_repository.dart';
-import '../../core/services/user_session_service.dart';
+import '../../core/repositories/neighbordrop_repository_firestore.dart';
 
 class MyArticlesController extends GetxController {
   final NeighbordropRepository repository = Get.find<NeighbordropRepository>();
 
   final articles = <Article>[].obs;
   final isLoading = false.obs;
+
+  // ID fixe pour les articles postés dans la session app
+  static const String _sessionContributorId = 'session-contributor';
 
   @override
   void onInit() {
@@ -18,9 +20,7 @@ class MyArticlesController extends GetxController {
   Future<void> loadMyArticles() async {
     isLoading.value = true;
     try {
-      final userSessionService = Get.find<UserSessionService>();
-      final currentUserId = userSessionService.currentUserId;
-      final result = await repository.getArticlesByUser(currentUserId);
+      final result = await repository.getArticlesByUser(_sessionContributorId);
       articles.value = result;
     } catch (e) {
       Get.snackbar('Erreur', 'Impossible de charger vos articles: $e');

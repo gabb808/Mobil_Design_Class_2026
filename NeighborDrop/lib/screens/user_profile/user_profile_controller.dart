@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import '../../core/models/app_user.dart';
-import '../../core/repositories/neighbordrop_repository.dart';
+import '../../core/repositories/neighbordrop_repository_firestore.dart';
 import '../../core/services/user_session_service.dart';
 
 class UserProfileController extends GetxController {

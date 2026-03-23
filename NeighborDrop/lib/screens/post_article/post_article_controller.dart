@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import '../../core/models/article.dart';
-import '../../core/repositories/neighbordrop_repository.dart';
+import '../../core/repositories/neighbordrop_repository_firestore.dart';
 import '../../core/services/user_session_service.dart';
 import 'package:flutter/material.dart';
 
@@ -48,9 +48,12 @@ class PostArticleController extends GetxController {
 
     isLoading.value = true;
     try {
-      // Récupérer l'ID utilisateur depuis le service de session
+      // Récupérer l'ID utilisateur de session pour le filtrage des articles
       final userSessionService = Get.find<UserSessionService>();
-      final userId = userSessionService.currentUserId;
+      final sessionUserId = userSessionService.currentUserId;
+      
+      // ID du donateur visible publiquement (utilisateur fictif "session-contributor")
+      const donorId = 'session-contributor';
       
       final article = Article(
         id: DateTime.now().toString(),
@@ -60,8 +63,8 @@ class PostArticleController extends GetxController {
         description: descriptionController.text,
         condition: selectedCondition.value,
         photoUrl: null, // Photo optionnelle - pas obligatoire
-        donorId: userId, // ID utilisateur cohérent
-        donorName: 'Mon Profil',
+        donorId: donorId, // ID donateur public reconnaissable
+        donorName: 'Vous (Contributeur)',
         donorPhotoUrl: 'https://i.pravatar.cc/150?img=2',
         postalCode: postalCodeController.text,
         latitude: 48.8566,
@@ -70,7 +73,7 @@ class PostArticleController extends GetxController {
       );
 
       await repository.createArticle(article);
-      Get.snackbar('Succès', 'Article posté avec succès!');
+      
       // Nettoyer les champs
       nameController.clear();
       sizeController.clear();
@@ -78,7 +81,9 @@ class PostArticleController extends GetxController {
       postalCodeController.text = '75012';
       selectedCategory.value = 'Vêtements';
       selectedCondition.value = 'Bon état';
-      Get.back();
+      
+      // Naviguer vers l'écran de succès
+      Get.toNamed('/post-success');
     } catch (e) {
       Get.snackbar('Erreur', 'Impossible de poster l\'article: $e');
     } finally {

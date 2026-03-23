@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import '../../core/models/article.dart';
-import '../../core/repositories/neighbordrop_repository.dart';
+import '../../core/repositories/neighbordrop_repository_firestore.dart';
 
 class ArticlesListController extends GetxController {
   final NeighbordropRepository repository = Get.find<NeighbordropRepository>();

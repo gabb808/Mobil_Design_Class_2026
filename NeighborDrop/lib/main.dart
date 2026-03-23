@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'core/repositories/neighbordrop_repository.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'core/repositories/neighbordrop_repository_firestore.dart';
 import 'core/services/user_session_service.dart';
+import 'core/services/firebase_options.dart';
 import 'screens/articles_list/articles_list_controller.dart';
 import 'screens/articles_list/articles_list_screen.dart';
 import 'screens/article_detail/article_detail_controller.dart';
 import 'screens/article_detail/article_detail_screen.dart';
 import 'screens/post_article/post_article_controller.dart';
 import 'screens/post_article/post_article_screen.dart';
+import 'screens/post_article/success_screen.dart';
 import 'screens/user_profile/user_profile_controller.dart';
 import 'screens/user_profile/user_profile_screen.dart';
 import 'screens/user_profile/edit_profile_controller.dart';
@@ -23,7 +26,11 @@ import 'screens/messages/messages_controller.dart';
 import 'screens/messages/messages_screen.dart';
 import 'shared/theme/app_colors.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const NeighborDropApp());
 }
 
@@ -72,6 +79,10 @@ class NeighborDropApp extends StatelessWidget {
           binding: BindingsBuilder(() {
             Get.lazyPut(() => PostArticleController());
           }),
+        ),
+        GetPage(
+          name: '/post-success',
+          page: () => const SuccessScreen(),
         ),
         GetPage(
           name: '/chat',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/models/app_user.dart';
-import '../../core/repositories/neighbordrop_repository.dart';
+import '../../core/repositories/neighbordrop_repository_firestore.dart';
 
 class EditProfileController extends GetxController {
   final NeighbordropRepository repository = Get.find<NeighbordropRepository>();

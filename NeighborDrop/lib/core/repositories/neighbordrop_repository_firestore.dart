@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import '../models/article.dart';
 import '../models/app_user.dart';
 
@@ -12,6 +13,68 @@ class NeighbordropRepository {
   NeighbordropRepository._internal();
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  
+  // Données de référence (mock)
+  final RxSet<String> favoriteArticleIds = <String>{}.obs;
+  
+  final categories = <String>[
+    'Vêtements',
+    'Meuble',
+    'Electromenager',
+    'Livres',
+    'Jouets',
+    'Sports',
+    'Autres',
+  ];
+  
+  final conditions = <String>[
+    'Neuf',
+    'Bon état',
+    'Occasion',
+  ];
+  
+  void toggleFavorite(String articleId) {
+    if (favoriteArticleIds.contains(articleId)) {
+      favoriteArticleIds.remove(articleId);
+    } else {
+      favoriteArticleIds.add(articleId);
+    }
+  }
+
+  bool isFavorite(String articleId) {
+    return favoriteArticleIds.contains(articleId);
+  }
+
+  List<Article> getFavoriteArticles() {
+    // Placeholder - implémentation complète requise pour récupérer depuis Firestore
+    return [];
+  }
+  
+  Future<AppUser?> getCurrentUser() async {
+    // Placeholder - en production, récupérer l'utilisateur actuel via FirebaseAuth
+    return null;
+  }
+
+  Future<void> updateUser(AppUser user) async {
+    try {
+      await _firestore
+          .collection('users')
+          .doc(user.id)
+          .update(user.toFirestore());
+    } catch (e) {
+      print('Erreur lors de la mise à jour de l\'utilisateur: $e');
+      throw e;
+    }
+  }
+
+  Future<void> markConversationAsRead(String conversationId) async {
+    try {
+      // Implémentation optionnelle
+      print('Conversation $conversationId marquée comme lue');
+    } catch (e) {
+      print('Erreur lors du marquage comme lu: $e');
+    }
+  }
   
   // ============ ARTICLES ============
   
@@ -49,7 +112,9 @@ class NeighbordropRepository {
   /// Crée un nouvel article
   Future<String> createArticle(Article article) async {
     try {
-      final docRef = await _firestore.collection('articles').add(article.toFirestore());
+      final articleData = article.toFirestore();
+      articleData['status'] = 'available'; // Ajouter le statut par défaut
+      final docRef = await _firestore.collection('articles').add(articleData);
       return docRef.id;
     } catch (e) {
       print('Erreur lors de la création de l\'article: $e');

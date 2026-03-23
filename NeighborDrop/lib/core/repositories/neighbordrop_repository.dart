@@ -201,6 +201,21 @@ class NeighbordropRepository {
       articlesPosted: 30,
       exchangesCompleted: 25,
     ),
+    // Utilisateur pour les articles postés dans la session app
+    AppUser(
+      id: 'session-contributor',
+      firstName: 'Vous',
+      lastName: '(Utilisateur)',
+      photoUrl: 'https://i.pravatar.cc/150?img=2',
+      postalCode: '75012',
+      latitude: 48.8566,
+      longitude: 2.3522,
+      bio: 'Contributeur local partageant ses articles avec les voisins.',
+      memberRating: 5.0,
+      memberSince: 1,
+      articlesPosted: 0,
+      exchangesCompleted: 0,
+    ),
   ];
 
   // ====================================================
