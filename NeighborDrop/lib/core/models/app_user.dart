@@ -71,6 +71,25 @@ class AppUser {
     );
   }
 
+  /// Crée un AppUser depuis un DocumentSnapshot Firestore
+  factory AppUser.fromFirestore(dynamic doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return AppUser(
+      id: doc.id,
+      firstName: data['firstName'] ?? '',
+      lastName: data['lastName'] ?? '',
+      photoUrl: data['photoUrl'] ?? '',
+      postalCode: data['postalCode'] ?? '',
+      latitude: (data['latitude'] ?? 0.0).toDouble(),
+      longitude: (data['longitude'] ?? 0.0).toDouble(),
+      bio: data['bio'] ?? '',
+      memberRating: (data['memberRating'] ?? 0.0).toDouble(),
+      memberSince: data['memberSince'] ?? 0,
+      articlesPosted: data['articlesPosted'] ?? 0,
+      exchangesCompleted: data['exchangesCompleted'] ?? 0,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -85,6 +104,26 @@ class AppUser {
       'memberSince': memberSince,
       'articlesPosted': articlesPosted,
       'exchangesCompleted': exchangesCompleted,
+    };
+  }
+
+  /// Convertit l'AppUser en Map pour Firestore
+  Map<String, dynamic> toFirestore() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'photoUrl': photoUrl,
+      'postalCode': postalCode,
+      'latitude': latitude,
+      'longitude': longitude,
+      'bio': bio,
+      'memberRating': memberRating,
+      'memberSince': memberSince,
+      'articlesPosted': articlesPosted,
+      'exchangesCompleted': exchangesCompleted,
+      'favorites': [],
+      'createdAt': DateTime.now(),
+      'updatedAt': DateTime.now(),
     };
   }
 }

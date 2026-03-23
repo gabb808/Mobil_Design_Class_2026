@@ -38,7 +38,7 @@ class Article {
       category: json['category'] ?? '',
       size: json['size'] ?? '',
       description: json['description'] ?? '',
-      condition: json['condition'] ?? 'Bon etat',
+      condition: json['condition'] ?? 'Bon état',
       photoUrl: json['photoUrl'] ?? '',
       donorId: json['donorId'] ?? '',
       donorName: json['donorName'] ?? '',
@@ -48,6 +48,48 @@ class Article {
       longitude: (json['longitude'] ?? 0.0).toDouble(),
       createdAt: DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now(),
     );
+  }
+
+  /// Crée un Article depuis un DocumentSnapshot Firestore
+  factory Article.fromFirestore(dynamic doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Article(
+      id: doc.id,
+      name: data['name'] ?? '',
+      category: data['category'] ?? '',
+      size: data['size'] ?? '',
+      description: data['description'] ?? '',
+      condition: data['condition'] ?? 'Bon état',
+      photoUrl: data['photoUrl'] ?? '',
+      donorId: data['donorId'] ?? '',
+      donorName: data['donorName'] ?? '',
+      donorPhotoUrl: data['donorPhotoUrl'] ?? '',
+      postalCode: data['postalCode'] ?? '',
+      latitude: (data['latitude'] ?? 0.0).toDouble(),
+      longitude: (data['longitude'] ?? 0.0).toDouble(),
+      createdAt: (data['createdAt'] as dynamic)?.toDate() ?? DateTime.now(),
+    );
+  }
+
+  /// Convertit l'Article en Map pour Firestore
+  Map<String, dynamic> toFirestore() {
+    return {
+      'name': name,
+      'category': category,
+      'size': size,
+      'description': description,
+      'condition': condition,
+      'photoUrl': photoUrl,
+      'donorId': donorId,
+      'donorName': donorName,
+      'donorPhotoUrl': donorPhotoUrl,
+      'postalCode': postalCode,
+      'latitude': latitude,
+      'longitude': longitude,
+      'createdAt': createdAt,
+      'status': 'available',
+      'updatedAt': DateTime.now(),
+    };
   }
 
   Map<String, dynamic> toJson() {

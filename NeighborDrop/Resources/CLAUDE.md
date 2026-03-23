@@ -6,15 +6,17 @@ NeighborDrop est une application mobile Flutter de don et troc entre voisins. Le
 ## Stack technique
 - **Framework** : Flutter (Dart)
 - **State management** : GetX
-- **Donnees** : Donnees mockees en local (MVP)
+- **Backend** : Firebase/Firestore (stockage temps réel)
+- **Authentification** : Firebase Auth (optionnel)
 - **Stockage local** : SharedPreferences (cache)
-- **Architecture** : Repository Pattern (Controllers -> Repository -> Data)
+- **Architecture** : Repository Pattern (Controllers -> Repository -> Firestore)
 
 ## Structure du projet
 ```
 lib/
-  core/models/         -> Article, AppUser, Proposition
-  core/repositories/   -> NeighbordropRepository (donnees mockees)
+  core/models/         -> Article, AppUser, Proposition (avec toFirestore/fromFirestore)
+  core/repositories/   -> NeighbordropRepository (Firestore backend)
+  core/services/       -> FirebaseService, firebase_options
   screens/
     articles_list/        -> ArticlesListController, ArticlesListScreen
     article_detail/       -> ArticleDetailController, ArticleDetailScreen
@@ -80,32 +82,35 @@ lib/
 - `/messages` : MessagesScreen (chat avec un voisin)
 
 ## Données mockées
-5 articles d'exemple avec:
-- ID unique
-- Nom, catégorie, taille/poids, description
-- Condition (Neuf/Bon état/Occasion)
-- Photo URL (images Unsplash)
-- Donateur (profil limité)
+## Stockage Firestore
 
-3 utilisateurs d'exemple (Jean, Marie, Thomas) avec:
-- Profil complet
-- Rating et statistiques
-- Articles postés et échanges complétés
+**Collections principales** :
+- `articles` : tous les articles disponibles au don/troc
+- `users` : profils utilisateurs
+- `conversations/{id}/messages` : messagerie P2P
+
+**Données de seed** (pour tester avant implémentation) :
+- 5 articles d'exemple (VTT, Table, Livres, etc.)
+- 3 utilisateurs d'exemple (Jean, Marie, Thomas)
+- Statut, ratings, et dates de création
+
+Voir [Firebase_Integration.md](Firebase_Integration.md) pour accéder à la configuration complète.
 
 ## Commandes utiles
 ```bash
 flutter pub get          # installer les dépendances
+flutterfire configure    # configurer Firebase
 flutter run              # lancer l'app
 flutter format lib/      # formater le code
 flutter build apk        # générer l'APK
 ```
 
 ## Prochaines étapes (post-MVP)
-- [ ] Intégration Firebase Firestore
-- [ ] Authentification Firebase
+- [ ] Authentification Firebase Auth (création de comptes)
 - [ ] Upload d'images (Firebase Storage)
-- [ ] Chat en temps réel
-- [ ] Système de rating/avis
-- [ ] Notifications push
-- [ ] Géolocalisation
-- [ ] Historique des échanges
+- [ ] Chat en temps réel avec StreamBuilder
+- [ ] Système de rating/avis amélioré
+- [ ] Notifications push (Firebase Cloud Messaging)
+- [ ] Géolocalisation avancée
+- [ ] Historique et statistiques des échanges
+- [ ] Recherche full-text (Algolia ou Elasticsearch)
