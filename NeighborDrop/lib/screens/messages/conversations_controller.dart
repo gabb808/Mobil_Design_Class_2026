@@ -20,8 +20,19 @@ class ConversationsController extends GetxController {
   Future<void> loadConversations() async {
     isLoading.value = true;
     try {
-      final convs = await repository.getUserConversations(userSessionService.currentUserId);
-      conversations.value = convs;
+      final convs = await repository.getConversations();
+      conversations.value = convs
+          .map((c) => {
+            'id': c.id,
+            'otherUserId': c.otherUserId,
+            'otherUserName': c.otherUserName,
+            'otherUserPhotoUrl': c.otherUserPhotoUrl,
+            'articleId': c.articleId,
+            'articleName': c.articleName,
+            'articlePhotoUrl': c.articlePhotoUrl,
+            'updatedAt': c.updatedAt,
+          })
+          .toList();
       // Update totalUnread count
       totalUnread.value = 0; // In future, calculate from conversations
     } catch (e) {

@@ -117,6 +117,20 @@ class ArticleDetailScreen extends GetView<ArticleDetailController> {
 
                       const SizedBox(height: AppDimens.paddingL),
 
+                      // Code postal
+                      Row(
+                        children: [
+                          Icon(Icons.location_on, color: AppColors.primary, size: 20),
+                          const SizedBox(width: AppDimens.paddingS),
+                          Text(
+                            'Code postal: ${article.postalCode}',
+                            style: AppTextStyles.bodyMedium,
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: AppDimens.paddingL),
+
                       // Donor card
                       Text(
                         'Annonceur',
@@ -196,9 +210,9 @@ class ArticleDetailScreen extends GetView<ArticleDetailController> {
                               vertical: AppDimens.paddingM,
                             ),
                           ),
-                          onPressed: () => controller.contactVoisin(),
+                          onPressed: () => controller.proposeExchange(),
                           child: const Text(
-                            'Contacter le voisin',
+                            'Proposer un échange',
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 16,

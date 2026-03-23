@@ -26,9 +26,22 @@ class RegistrationController extends GetxController {
 
     isLoading.value = true;
     try {
-      // Créer un nouvel utilisateur
+      // Chercher si l'utilisateur existe déjà
+      final existingUser = await repository.getUserByFirstName(pseudo);
+
+      if (existingUser != null) {
+        // Utilisateur existe → charger ses infos
+        userSessionService.setCurrentUserId(existingUser.id);
+        Get.snackbar('Succès', 'Bienvenue de retour ${existingUser.firstName}!');
+        Get.offAllNamed('/');
+        return;
+      }
+
+      // Nouvel utilisateur → créer avec un ID unique basé sur le pseudo
+      final newUserId = pseudo.toLowerCase().replaceAll(' ', '_') + '_' + DateTime.now().millisecondsSinceEpoch.toString();
+      
       final newUser = AppUser(
-        id: userSessionService.currentUserId,
+        id: newUserId,
         firstName: pseudo,
         lastName: '',
         photoUrl: 'https://via.placeholder.com/150',
@@ -43,12 +56,16 @@ class RegistrationController extends GetxController {
       );
 
       // Sauvegarder dans Firestore
-      await repository.createUser(userSessionService.currentUserId, newUser);
+      await repository.createUser(newUserId, newUser);
+      
+      // Mettre à jour la session
+      userSessionService.setCurrentUserId(newUserId);
 
       // Rediriger vers l'accueil
+      Get.snackbar('Succès', 'Profil créé avec succès!');
       Get.offAllNamed('/');
     } catch (e) {
-      Get.snackbar('Erreur', 'Impossible de créer le profil: $e');
+      Get.snackbar('Erreur', 'Impossible de créer/charger le profil: $e');
     } finally {
       isLoading.value = false;
     }

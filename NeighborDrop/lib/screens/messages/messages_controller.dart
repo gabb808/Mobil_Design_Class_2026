@@ -32,8 +32,16 @@ class MessagesController extends GetxController {
     
     try {
       isLoading.value = true;
-      final msgs = await repository.getConversationMessages(conversationId.value!);
-      messages.value = msgs;
+      // Messages are loaded from getConversations()
+      final convs = await repository.getConversations();
+      var messages_data = <Map<String, dynamic>>[];
+      for (var conv in convs) {
+        if (conv.id == conversationId.value) {
+          messages_data = conv.messages?.map((m) => {'content': m.content, 'senderId': m.senderId}).toList() ?? [];
+          break;
+        }
+      }
+      messages.value = messages_data;
     } catch (e) {
       Get.snackbar('Erreur', 'Impossible de charger les messages');
     } finally {
@@ -45,10 +53,14 @@ class MessagesController extends GetxController {
     isLoading.value = true;
     try {
       final conv = await repository.getOrCreateConversation(
-        userSessionService.currentUserId,
-        article.donorId,
+        otherUserId: article.donorId,
+        otherUserName: 'Voisin',
+        otherUserPhotoUrl: '',
+        articleId: article.id,
+        articleName: article.name,
+        articlePhotoUrl: article.photoUrl ?? '',
       );
-      conversationId.value = conv;
+      conversationId.value = conv.id;
       await _loadMessages();
     } catch (e) {
       Get.snackbar('Erreur', 'Impossible d\'ouvrir la conversation');
@@ -63,9 +75,9 @@ class MessagesController extends GetxController {
     isSending.value = true;
     try {
       await repository.sendMessage(
-          conversationId.value!, 
-          userSessionService.currentUserId, 
-          messageText.text.trim());
+        conversationId: conversationId.value!,
+        content: messageText.text.trim(),
+      );
       messageText.clear();
       await _loadMessages();
     } catch (e) {

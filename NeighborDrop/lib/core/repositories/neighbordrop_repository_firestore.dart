@@ -158,6 +158,37 @@ class NeighbordropRepository {
     }
   }
 
+  Future<bool> createUser(String userId, AppUser user) async {
+    try {
+      await _firestore
+          .collection('users')
+          .doc(userId)
+          .set(user.toFirestore());
+      return true;
+    } catch (e) {
+      print('Erreur lors de la création de l\'utilisateur: $e');
+      return false;
+    }
+  }
+
+  Future<AppUser?> getUserByFirstName(String firstName) async {
+    try {
+      final snapshot = await _firestore
+          .collection('users')
+          .where('firstName', isEqualTo: firstName)
+          .limit(1)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return AppUser.fromFirestore(snapshot.docs.first);
+      }
+      return null;
+    } catch (e) {
+      print('Erreur lors de la récupération de l\'utilisateur par nom: $e');
+      return null;
+    }
+  }
+
   // ============ PROPOSITIONS ============
 
   Future<List<Proposition>> getPropositionsForArticle(String articleId) async {

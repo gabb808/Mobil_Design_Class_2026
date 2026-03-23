@@ -230,7 +230,7 @@ class _MainShellState extends State<MainShell> {
 class AppBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(UserSessionService());
+    Get.putAsync<UserSessionService>(() async => UserSessionService());
     Get.put(NeighbordropRepository());
   }
 }
