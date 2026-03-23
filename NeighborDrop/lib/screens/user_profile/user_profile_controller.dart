@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import '../../core/models/app_user.dart';
 import '../../core/repositories/neighbordrop_repository.dart';
+import '../../core/services/user_session_service.dart';
 
 class UserProfileController extends GetxController {
   final NeighbordropRepository repository = Get.find<NeighbordropRepository>();
@@ -19,16 +20,20 @@ class UserProfileController extends GetxController {
   Future<void> loadUser([String? userId]) async {
     isLoading.value = true;
     try {
-      final currentUser = await repository.getCurrentUser();
-      if (userId != null && currentUser != null && userId != currentUser.id) {
+      final userSessionService = Get.find<UserSessionService>();
+      final currentUserId = userSessionService.currentUserId;
+      
+      if (userId != null && userId != currentUserId) {
+        // Load a different user's profile
         user.value = await repository.getUserById(userId);
         isCurrentUser.value = false;
       } else {
-        user.value = currentUser;
+        // Load current user's profile
+        user.value = await repository.getUserById(currentUserId);
         isCurrentUser.value = true;
       }
     } catch (e) {
-      Get.snackbar('Erreur', 'Impossible de charger le profil');
+      Get.snackbar('Erreur', 'Impossible de charger le profil: $e');
     } finally {
       isLoading.value = false;
     }

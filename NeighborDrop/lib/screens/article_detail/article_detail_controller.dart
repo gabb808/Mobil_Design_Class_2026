@@ -5,7 +5,7 @@ import '../../core/models/proposition.dart';
 import '../../core/repositories/neighbordrop_repository.dart';
 
 class ArticleDetailController extends GetxController {
-  final NeighbordropRepository repository = NeighbordropRepository();
+  final NeighbordropRepository repository = Get.find<NeighbordropRepository>();
   
   final article = Rxn<Article>();
   final propositions = <Proposition>[].obs;

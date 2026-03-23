@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/repositories/neighbordrop_repository.dart';
+import 'core/services/user_session_service.dart';
 import 'screens/articles_list/articles_list_controller.dart';
 import 'screens/articles_list/articles_list_screen.dart';
 import 'screens/article_detail/article_detail_controller.dart';
@@ -204,6 +205,7 @@ class _MainShellState extends State<MainShell> {
 class AppBindings extends Bindings {
   @override
   void dependencies() {
+    Get.put(UserSessionService());
     Get.put(NeighbordropRepository());
   }
 }

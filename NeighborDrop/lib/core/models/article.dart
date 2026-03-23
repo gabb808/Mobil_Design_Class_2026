@@ -4,8 +4,8 @@ class Article {
   final String category;
   final String size;
   final String description;
-  final String condition; // Neuf, Bon etat, Occasion
-  final String photoUrl;
+  final String condition; // Neuf, Bon état, Occasion
+  final String? photoUrl; // Zone optionnelle
   final String donorId;
   final String donorName;
   final String donorPhotoUrl;
@@ -21,7 +21,7 @@ class Article {
     required this.size,
     required this.description,
     required this.condition,
-    required this.photoUrl,
+    this.photoUrl, // Optionnel
     required this.donorId,
     required this.donorName,
     required this.donorPhotoUrl,

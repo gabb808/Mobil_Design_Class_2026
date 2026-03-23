@@ -76,7 +76,7 @@ class PostArticleScreen extends GetView<PostArticleController> {
               const SizedBox(height: AppDimens.paddingM),
 
               // Condition dropdown
-              _buildLabel('Etat'),
+              _buildLabel('État'),
               Obx(
                 () => DropdownButtonFormField(
                   initialValue: controller.selectedCondition.value,
@@ -101,7 +101,7 @@ class PostArticleScreen extends GetView<PostArticleController> {
                 controller: controller.descriptionController,
                 maxLines: 4,
                 decoration: InputDecoration(
-                  hintText: 'Decrivez votre article...',
+                  hintText: 'Décrivez votre article...',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -109,18 +109,18 @@ class PostArticleScreen extends GetView<PostArticleController> {
               ),
               const SizedBox(height: AppDimens.paddingM),
 
-              // Photo button
+              // Photo button (optionnel)
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey[300],
                 ),
                 icon: const Icon(Icons.image, color: Colors.black),
                 label: const Text(
-                  'Ajouter une photo',
+                  'Ajouter une photo (optionnel)',
                   style: TextStyle(color: Colors.black),
                 ),
                 onPressed: () {
-                  Get.snackbar('Info', 'Fonctionnalite non implementee (MVP)');
+                  Get.snackbar('Info', 'Fonctionnalité non implémentée pour MVP');
                 },
               ),
               const SizedBox(height: AppDimens.paddingM),

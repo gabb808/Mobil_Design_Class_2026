@@ -3,7 +3,7 @@ import '../../core/models/article.dart';
 import '../../core/repositories/neighbordrop_repository.dart';
 
 class ArticlesListController extends GetxController {
-  final NeighbordropRepository repository = NeighbordropRepository();
+  final NeighbordropRepository repository = Get.find<NeighbordropRepository>();
   
   final articles = <Article>[].obs;
   final isLoading = false.obs;

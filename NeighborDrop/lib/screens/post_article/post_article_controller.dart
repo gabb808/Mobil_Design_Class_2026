@@ -1,18 +1,19 @@
 import 'package:get/get.dart';
 import '../../core/models/article.dart';
 import '../../core/repositories/neighbordrop_repository.dart';
+import '../../core/services/user_session_service.dart';
 import 'package:flutter/material.dart';
 
 class PostArticleController extends GetxController {
-  final NeighbordropRepository repository = NeighbordropRepository();
+  final NeighbordropRepository repository = Get.find<NeighbordropRepository>();
 
   final nameController = TextEditingController();
   final sizeController = TextEditingController();
   final descriptionController = TextEditingController();
   final postalCodeController = TextEditingController(text: '75012');
 
-  final selectedCategory = 'Vetements'.obs;
-  final selectedCondition = 'Bon etat'.obs;
+  final selectedCategory = 'Vêtements'.obs;
+  final selectedCondition = 'Bon état'.obs;
   final isLoading = false.obs;
 
   final categories = <String>[].obs;
@@ -47,6 +48,10 @@ class PostArticleController extends GetxController {
 
     isLoading.value = true;
     try {
+      // Récupérer l'ID utilisateur depuis le service de session
+      final userSessionService = Get.find<UserSessionService>();
+      final userId = userSessionService.currentUserId;
+      
       final article = Article(
         id: DateTime.now().toString(),
         name: nameController.text,
@@ -54,9 +59,8 @@ class PostArticleController extends GetxController {
         size: sizeController.text,
         description: descriptionController.text,
         condition: selectedCondition.value,
-        photoUrl:
-            'https://images.unsplash.com/photo-1595508149631-5ea98db5ae5b?w=400',
-        donorId: 'current-user',
+        photoUrl: null, // Photo optionnelle - pas obligatoire
+        donorId: userId, // ID utilisateur cohérent
         donorName: 'Mon Profil',
         donorPhotoUrl: 'https://i.pravatar.cc/150?img=2',
         postalCode: postalCodeController.text,
@@ -66,10 +70,17 @@ class PostArticleController extends GetxController {
       );
 
       await repository.createArticle(article);
-      Get.snackbar('Succes', 'Article poste avec succes!');
+      Get.snackbar('Succès', 'Article posté avec succès!');
+      // Nettoyer les champs
+      nameController.clear();
+      sizeController.clear();
+      descriptionController.clear();
+      postalCodeController.text = '75012';
+      selectedCategory.value = 'Vêtements';
+      selectedCondition.value = 'Bon état';
       Get.back();
     } catch (e) {
-      Get.snackbar('Erreur', 'Impossible de poster l\'article');
+      Get.snackbar('Erreur', 'Impossible de poster l\'article: $e');
     } finally {
       isLoading.value = false;
     }

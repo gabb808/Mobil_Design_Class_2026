@@ -98,7 +98,7 @@ class NeighbordropRepository {
     try {
       final snapshot = await _firestore
           .collection('articles')
-          .where('ownerId', isEqualTo: userId)
+          .where('donorId', isEqualTo: userId)
           .get();
       
       return snapshot.docs
@@ -108,6 +108,11 @@ class NeighbordropRepository {
       print('Erreur lors de la récupération des articles utilisateur: $e');
       return [];
     }
+  }
+
+  /// Alias pour getArticlesByUser - compatibilité avec mock repository
+  Future<List<Article>> getArticlesByUser(String userId) async {
+    return getUserArticles(userId);
   }
 
   /// Met à jour le statut d'un article
