@@ -50,12 +50,12 @@ lib/
 | Placeholder | Valeur | Justification |
 |-------------|--------|---------------|
 | [projet] | studymate/NeighborDrop | Nom de l'app technique / produit |
-| [model1] | rticle | Objet à donner/échanger |
+| [model1] | Article | Objet à donner/échanger |
 | [model2] | user | Utilisateur de la plateforme |
-| [model3] | message/conversation | Echanges entre utilisateurs |
-| [ecran1] | rticles_list | Ecran principal listant les objets |
-| [ecran2] | rticle_detail | Ecran de profil/détail de l'objet |
-| [ecran3] | messages | Ecran de messagerie/troc |
+| [model3] | message/conversation | Échanges entre utilisateurs |
+| [ecran1] | articles_list | Écran principal listant les objets |
+| [ecran2] | article_detail | Écran de profil/détail de l'objet |
+| [ecran3] | messages | Écran de messagerie/troc |
 | [ecran4] | user_profile | Profil utilisateur et Mes Annonces |
 
 
@@ -92,7 +92,7 @@ lib/
 **Responsabilités :**
 - Récupérer la liste des articles
 - Récupérer le détail d'un article et son propriétaire
-- Gérer les favoris (	oggleFavorite, isFavorite) avec **GetX reactivity (RxSet)**
+- Gérer les favoris (toggleFavorite, isFavorite) avec **GetX reactivity (RxSet)**
 - Gérer la messagerie mockée
 
 ### Controllers (GetX)

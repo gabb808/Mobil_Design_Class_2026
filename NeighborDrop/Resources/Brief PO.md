@@ -4,36 +4,36 @@
 
 **1. C'est quoi ?**
 
-> Une app mobile de don et troc entre voisins. Les utilisateurs postent des articles qu'ils donnent/troquent et peuvent browsez les articles disponibles dans leur quartier. Ils peuvent envoyer des propositions et discuter directement avec d'autres voisins.
+> Une app mobile de don et troc entre voisins. Les utilisateurs postent des articles qu'ils donnent/troquent et peuvent explorer les articles disponibles dans leur quartier. Ils peuvent envoyer des propositions et discuter directement avec d'autres voisins.
 
 **2. C'est pour qui ?**
 
-> Les habitants d'un quartier (tous ages) qui veulent donner/troquer des articles avec leurs voisins plutÃ´t que de les jeter.
+> Les habitants d'un quartier (tous âges) qui veulent donner/troquer des articles avec leurs voisins plutôt que de les jeter.
 
-**3. Ca resout quel probleme ?**
+**3. Ça résout quel problème ?**
 
-> RÃ©duire les dÃ©chets en facilitant les dons et Ã©changes entre voisins. CrÃ©er une communautÃ© locale. Donner une seconde vie aux objets.
+> Réduire les déchets en facilitant les dons et échanges entre voisins. Créer une communauté locale. Donner une seconde vie aux objets.
 
 **Client :** Association locale "Quartier Solidaire"
 
 
 ## Section 2 : Ecrans
 
-### Ecran 1 : Accueil - Liste des articles disponibles
+### Écran 1 : Accueil - Liste des articles disponibles
 
-**C'est quoi cet ecran ?**
+**C'est quoi cet écran ?**
 
-> Ecran principal affichant tous les articles disponibles au don/troc dans le quartier sous forme de cards.
+> Écran principal affichant tous les articles disponibles au don/troc dans le quartier sous forme de cards.
 
-**C'est le premier ecran que l'utilisateur voit ?**
+**C'est le premier écran que l'utilisateur voit ?**
 
 > Oui
 
-**Quels COMPOSANTS sur cet ecran ?**
+**Quels COMPOSANTS sur cet écran ?**
 
 > Header "NeighborDrop" + icone recherche
 > Filtre par quartier / code postal
-> Filtres par categorie horizontaux (Tous / Vetements / Livres / Electromenager / Jouets / Autres)
+> Filtres par catégorie horizontaux (Tous / Vêtements / Livres / Électroménager / Jouets / Autres)
 > Liste de cards articles (photo, nom, categorie, taille/poids, nom du voisin)
 > Bouton "+" (ajouter un article)
 > Bouton Favori (coeur) sur chaque card
@@ -74,27 +74,27 @@
 |------|-------------|-------------------------------|
 | `Loading` | Oui | Spinner + "Chargement des articles..." |
 | `Success` | Oui | Liste des articles visible |
-| `Empty` | Oui | Message "Aucun article pour l'instant" + suggestion d'elargir quartier |
+| `Empty` | Oui | Message "Aucun article pour l'instant" + suggestion d'élargir quartier |
 | `Error` | Oui | Toast "Erreur lors du chargement" |
 | `NoConnection` | Oui | Affichage en cache si disponible |
-| `Filtered` | Oui | Liste filtree par categorie avec chip actif |
+| `Filtered` | Oui | Liste filtrée par catégorie avec chip actif |
 
 
-### Ecran 2 : Detaille d'un article
+### Écran 2 : Détail d'un article
 
-**C'est quoi cet ecran ?**
+**C'est quoi cet écran ?**
 
-> Page complete d'un article avec photo grande, description, categorie, taille/poids, profil du donneur et bouton pour envoyer une proposition.
+> Page complète d'un article avec photo grande, description, catégorie, taille/poids, profil du donneur et bouton pour envoyer une proposition.
 
-**C'est le premier ecran que l'utilisateur voit ?**
+**C'est le premier écran que l'utilisateur voit ?**
 
-> Non (tap sur card de l'ecran 1)
+> Non (tap sur card de l'écran 1)
 
-**Quels COMPOSANTS sur cet ecran ?**
+**Quels COMPOSANTS sur cet écran ?**
 
 > Photo de l'article (grande, scrollable si plusieurs photos)
 > Nom de l'article
-> Categorie + taille/poids + etat (Neuf / Bon etat / Occasion)
+> Catégorie + taille/poids + état (Neuf / Bon état / Occasion)
 > Description courte de l'article
 > Carte du donneur (photo, prenom, quartier, rating)
 > Bouton "Proposer un echange" (primary, sticky bottom)
@@ -128,25 +128,25 @@
 +-------------------------+
 ```
 
-**Les 6 etats :**
+**Les 6 états :**
 
-| Etat | Applicable ? | Description UI / Justification |
+| État | Applicable ? | Description UI / Justification |
 |------|-------------|-------------------------------|
 | `Loading` | Oui | Skeleton loaders |
-| `Success` | Oui | Tous les details charges |
-| `Empty` | Non | Un article a toujours un nom et une categorie |
-| `Error` | Oui | Message "Article non trouve" + retour |
+| `Success` | Oui | Tous les détails chargés |
+| `Empty` | Non | Un article a toujours un nom et une catégorie |
+| `Error` | Oui | Message "Article non trouvé" + retour |
 | `NoConnection` | Oui | Cache si disponible |
 | `ArticleDeleted` | Oui | "Cet article n'existe plus" |
 
 
-### Ecran 3 : Poster un article
+### Écran 3 : Poster un article
 
-**C'est quoi cet ecran ?**
+**C'est quoi cet écran ?**
 
-> Formulaire pour poster un nouvel article au don. L'utilisateur remplit tous les details de l'article.
+> Formulaire pour poster un nouvel article au don. L'utilisateur remplit tous les détails de l'article.
 
-**C'est le premier ecran que l'utilisateur voit ?**
+**C'est le premier écran que l'utilisateur voit ?**
 
 > Non (tap sur bouton "+" de l'ecran 1)
 

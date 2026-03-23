@@ -1,6 +1,6 @@
-# DESIGN SYSTEM -- StudyMate
+# DESIGN SYSTEM -- NeighborDrop
 
-> Le Brief PO definit QUOI. L'Architecture definit COMMENT. Ce document definit A QUOI CA RESSEMBLE.
+> Le Brief PO définit QUOI. L'Architecture définit COMMENT. Ce document définit À QUOI ÇA RESSEMBLE.
 
 ---
 
@@ -8,15 +8,15 @@
 
 **Quelle app vous inspire ?**
 
-> LinkedIn Learning + Coursera = design epure, studieux mais moderne, focus sur les profils et competences
+> LinkedIn Learning + Coursera = design épuré, studieux mais moderne, focus sur les profils et compétences
 
 **Screenshot :**
 
-> Design clean avec cards blanches, accents bleu fonce, photos de profil rondes, ambiance universitaire
+> Design clean avec cards blanches, accents bleu foncé, photos de profil rondes, ambiance universitaire
 
 **L'ambiance en un mot :**
 
-- [x] Serieuse / Corporate
+- [x] Sérieuse / Corporate
 - [ ] Fun / Jeune
 - [x] Clean / Minimale
 - [ ] Chaleureuse / Organique
@@ -26,21 +26,21 @@
 
 ## Section 2 : Couleurs
 
-> Palette froide et professionnelle, inspiree du monde universitaire
-> Couleurs froides (bleu fonce + blanc) comme indique dans le brief client
+> Palette froide et professionnelle, inspirée du monde universitaire
+> Couleurs froides (bleu foncé + blanc) comme indiqué dans le brief client
 
 | Nom | Hex | Role |
 |-----|-----|------|
-| primary | #1A237E | Bouton "Demander une session", headers, actions principales (bleu fonce) |
+| primary | #1A237E | Bouton "Demander une session", headers, actions principales (bleu foncé) |
 | primaryLight | #3949AB | Hover states, chips actifs, accents (bleu moyen) |
-| secondary | #FF8F00 | Etoiles de notation, badges, accents chauds (ambre) |
-| background | #F5F7FA | Fond de l'app, ecrans (gris tres clair bleuté) |
+| secondary | #FF8F00 | Étoiles de notation, badges, accents chauds (ambre) |
+| background | #F5F7FA | Fond de l'app, écrans (gris très clair bleuté) |
 | surface | #FFFFFF | Fond des cards (blanc pur) |
 | textPrimary | #1A1A2E | Titres, texte important (quasi-noir bleuté) |
 | textSecondary | #6B7280 | Sous-titres, descriptions (gris moyen) |
-| success | #2E7D32 | "Demande acceptee", confirmation (vert) |
+| success | #2E7D32 | "Demande acceptée", confirmation (vert) |
 | error | #C62828 | Erreurs, validation, "Annuler" (rouge) |
-| divider | #E5E7EB | Separateurs, bordures (gris clair) |
+| divider | #E5E7EB | Séparateurs, bordures (gris clair) |
 
 
 ---
@@ -67,15 +67,15 @@
 
 | Nom | Valeur | Utilise pour quoi ? |
 |-----|--------|---------------------|
-| padding standard | 16px | Espace interieur des cards, padding des ecrans |
+| padding standard | 16px | Espace intérieur des cards, padding des écrans |
 | espace entre cards | 12px | Gap vertical entre les partner cards |
 | border radius cards | 12px | Coins arrondis des cards partenaires |
 | border radius boutons | 8px | Coins arrondis du bouton "Demander une session" |
-| border radius chips | 20px | Coins arrondis des chips matieres (full rounded) |
+| border radius chips | 20px | Coins arrondis des chips matières (full rounded) |
 | hauteur header | 56px | Barre du haut (app bar) |
-| taille photo profil (liste) | 48x48px | Photo ronde dans les cards (ecran 1) |
-| taille photo profil (detail) | 120x120px | Grande photo circulaire (ecran 2) |
-| espacement vertical ecran | 20px | Entre les sections principales d'un ecran |
+| taille photo profil (liste) | 48x48px | Photo ronde dans les cards (écran 1) |
+| taille photo profil (détail) | 120x120px | Grande photo circulaire (écran 2) |
+| espacement vertical écran | 20px | Entre les sections principales d'un écran |
 | hauteur partner card | ~100px | Hauteur des cards dans la liste |
 | padding bottom nav | 60px | Hauteur de la bottom navigation bar |
 
@@ -85,23 +85,23 @@
 ## Section 5 : Composants reutilisables
 
 ### PartnerCard
-- Card blanche arrondie (12px) avec ombre legere
-- Photo de profil ronde a gauche (48px)
-- Prenom + matiere principale + note (etoiles) + prochaine dispo
-- Icone coeur (favoris) en haut a droite
+- Card blanche arrondie (12px) avec ombre légère
+- Photo de profil ronde à gauche (48px)
+- Prénom + matière principale + note (étoiles) + prochaine disponibilité
+- Icône cœur (favoris) en haut à droite
 
 ### SubjectChip
 - Chip arrondi (20px) avec fond primaryLight et texte blanc
-- Utilise sur ecrans 1 (filtres) et 2 (matieres maitrisees)
-- Etat actif : fond primary, texte blanc
-- Etat inactif : fond gris clair, texte textSecondary
+- Utilisé sur écrans 1 (filtres) et 2 (matières maîtrisées)
+- État actif : fond primary, texte blanc
+- État inactif : fond gris clair, texte textSecondary
 
 ### ReviewTile
-- Etoiles (secondary color) + commentaire + nom auteur + date relative
-- Separateur divider en bas
+- Étoiles (secondary color) + commentaire + nom auteur + date relative
+- Séparateur divider en bas
 
 ### AvailabilitySlot
-- Chip rectangulaire avec icone calendrier + jour + horaire
+- Chip rectangulaire avec icône calendrier + jour + horaire
 - Fond background, bordure divider, texte textPrimary
 
 ### PrimaryButton
